@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,18 +16,25 @@ public class Tile : MonoBehaviour
     public bool visited = false;
     public Tile parent = null;
     public int distance = 0;
-    
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if(current)
+        {
+            GetComponent<Renderer>().material.color = Color.magenta;
+        }
+        else if(target)
+        {
+            GetComponent<Renderer>().material.color = Color.green;
+        }
+        else if(selectable)
+        {
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+        else
+        {
+            GetComponent<Renderer>().material.color = Color.white;
+        }
     }
 
     public void Reset()
@@ -65,7 +73,7 @@ public class Tile : MonoBehaviour
             {
                 RaycastHit hit;
 
-                if (Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1))
+                if (!Physics.Raycast(tile.transform.position, Vector3.up, out hit, 1))
                 {
                     adjacencyList.Add(tile);
                 }
