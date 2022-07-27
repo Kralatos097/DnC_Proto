@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TacticsMovement : MonoBehaviour
@@ -22,13 +23,17 @@ public class TacticsMovement : MonoBehaviour
 
     private float halfHeight = 0;
 
+    public Tile actualTargetTile;
+
     protected void Init()
     {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
 
         halfHeight = GetComponent<Collider>().bounds.extents.y;
+
+        gameObject.GetComponent<CombatStat>().RollInit();
         
-        TurnManager.AddUnit(this);
+        TurnManagerV2.AddUnit(this);
     }
 
     protected void GetCurrentTile()
@@ -55,7 +60,16 @@ public class TacticsMovement : MonoBehaviour
         foreach (GameObject tile in tiles)
         {
             Tile t = tile.GetComponent<Tile>();
-            t.FindNeighbors();
+            t.FindNeighbors(null);
+        }
+    }
+    
+    protected void ComputeAdjacencyList(Tile target)
+    {
+        foreach (GameObject tile in tiles)
+        {
+            Tile t = tile.GetComponent<Tile>();
+            t.FindNeighbors(target);
         }
     }
 
@@ -136,7 +150,7 @@ public class TacticsMovement : MonoBehaviour
             moving = false;
             
             //todo: fin du tour après les actions
-            TurnManager.EndTurn();
+            TurnManagerV2.EndTurn();
         }
     }
 
@@ -175,5 +189,109 @@ public class TacticsMovement : MonoBehaviour
     public void EndTurn()
     {
         turn = false;
+    }
+
+    protected Tile FindEndTile(Tile t)
+    {
+        Stack<Tile> tempPath = new Stack<Tile>();
+
+        Tile next = t.parent;
+        while(next != null)
+        {
+            tempPath.Push(next);
+            next = next.parent;
+        }
+
+        if (tempPath.Count <= move)
+        {
+            return t.parent;
+        }
+
+        Tile endTile = null;
+
+        for (int i = 0; i <= move; i++)
+        {
+            endTile = tempPath.Pop();
+        }
+
+        return endTile;
+    }
+
+    protected void FindPath(Tile targetTile)
+    {
+        ComputeAdjacencyList(targetTile);
+        GetCurrentTile();
+
+        List<Tile> openList = new List<Tile>();
+        List<Tile> closedList = new List<Tile>();
+        
+        openList.Add(currentTile);
+        //currentTile.parent = ??;
+        currentTile.h = Vector3.Distance(currentTile.transform.position, targetTile.transform.position);
+        currentTile.f = currentTile.h;
+
+        while (openList.Count > 0)
+        {
+            Tile t = FindLowestF(openList);
+            
+            closedList.Add(t);
+
+            if (t == targetTile)
+            {
+                actualTargetTile = FindEndTile(t);
+                MoveToTile(actualTargetTile);
+                return;
+            }
+
+            foreach (Tile tile in t.adjacencyList)
+            {
+                if (closedList.Contains(tile))
+                {
+                    //Do nothing, already processed
+                }
+                else if (openList.Contains(tile))
+                {
+                    float tempG = t.g + Vector3.Distance(tile.transform.position, t.transform.position);
+
+                    if (tempG < tile.g)
+                    {
+                        tile.parent = t;
+                        tile.g = tempG;
+                        tile.f = tile.g + tile.h;
+                    }
+                }
+                else
+                {
+                    tile.parent = t;
+
+                    tile.g = t.g + Vector3.Distance(tile.transform.position, t.transform.position);
+                    tile.h = Vector3.Distance(tile.transform.position, targetTile.transform.position);
+
+                    tile.f = tile.g + tile.h;
+                    
+                    openList.Add(tile);
+                }
+            }
+        }
+        
+        //todo - what do you do if there is no path to the target tile?
+        Debug.Log("Path not Found");
+    }
+
+    protected Tile FindLowestF(List<Tile> list)
+    {
+        Tile lowest = list[0];
+
+        foreach (Tile t in list)
+        {
+            if (t.f < lowest.f)
+            {
+                lowest = t;
+            }
+        }
+
+        list.Remove(lowest);
+        
+        return lowest;
     }
 }
