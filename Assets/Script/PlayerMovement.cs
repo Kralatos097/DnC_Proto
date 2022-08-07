@@ -1,13 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : TacticsMovement
 {
+    private UIManager _uiManager;
+    private bool pass = false;
     
     // Start is called before the first frame update
     void Start()
     {
+        _uiManager = FindObjectOfType<UIManager>();
         Init();
     }
 
@@ -15,15 +19,55 @@ public class PlayerMovement : TacticsMovement
     void Update()
     {
         if(!turn) return;
-        
-        if (!moving)
+
+        //display action Selector on turn start
+        if (!pass)
         {
-            FindSelectableTile();
-            CheckMove();
+            _uiManager.ShowActionSelector();
+            pass = true;
         }
-        else
+
+        switch(_uiManager.actionSelected)
         {
-            Move();
+            case Action.Attack :
+                //todo: attack
+                break;
+            case Action.Move:
+                _uiManager.HideActionSelector();
+                if(!moving)
+                {
+                    //Début du Soulevement du pion lors du mouvement
+                    if(!passM)
+                    {
+                        transform.GetChild(0).Translate(0, MoveY, 0);
+                        passM = true;
+                    }
+                    
+                    FindSelectableTile();
+                    CheckMove();
+                }
+                else
+                {
+                    Move();
+                    _uiManager.alreadyMoved = true;
+                }
+                break;
+            case Action.Stay:
+                TurnManagerV2.EndTurn();
+                pass = false;
+                _uiManager.Reset();
+                break;
+            case Action.Default:
+                RemoveSelectableTile();
+                if(passM)
+                {
+                    //Fin du Soulevement du pion lors du mouvement
+                    transform.GetChild(0).Translate(0,-MoveY,0);
+                    passM = false;
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -47,5 +91,12 @@ public class PlayerMovement : TacticsMovement
                 }
             }
         }
+    }
+    
+    protected override void EndOfMovement()
+    {
+        base.EndOfMovement();
+        _uiManager.actionSelected = Action.Default;
+        _uiManager.ShowActionSelector();
     }
 }

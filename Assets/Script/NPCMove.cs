@@ -19,6 +19,13 @@ public class NPCMove : TacticsMovement
         
         if (!moving)
         {
+            //Début du Soulevement du pion lors du mouvement
+            if(!passM)
+            {
+                transform.GetChild(0).Translate(0, MoveY, 0);
+                passM = true;
+            }
+            
             FindNearestTarget();
             CalculatePath();
             FindSelectableTile();
@@ -55,5 +62,11 @@ public class NPCMove : TacticsMovement
     {
         Tile targetTile = GetTargetTile(target);
         FindPath(targetTile);
+    }
+
+    protected override void EndOfMovement()
+    {
+        base.EndOfMovement();
+        TurnManagerV2.EndTurn();
     }
 }

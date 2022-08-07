@@ -51,6 +51,7 @@ public class TurnManagerV2 : MonoBehaviour
     {
         if (ArePlayersAlive() && AreEnnemisAlive())
         {
+            Debug.Log("Turn of : " + turnOrder.Peek().name);
             turnOrder.Peek().BeginTurn();
         }
         else

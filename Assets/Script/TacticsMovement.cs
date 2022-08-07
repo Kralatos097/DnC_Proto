@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,15 +17,19 @@ public class TacticsMovement : MonoBehaviour
     private Tile currentTile;
 
     protected bool moving = false;
+    protected bool attacking = false;
     [SerializeField] protected int move = 3;
     [SerializeField] protected float moveSpeed = 2;
+
+    protected float MoveY = 1f;
+    protected bool passM = false;
 
     private Vector3 velocity = new Vector3();
     private Vector3 heading = new Vector3();
 
     private float halfHeight = 0;
 
-    public Tile actualTargetTile;
+    [HideInInspector] public Tile actualTargetTile;
 
     protected void Init()
     {
@@ -35,7 +41,7 @@ public class TacticsMovement : MonoBehaviour
         
         TurnManagerV2.AddUnit(this);
     }
-
+    
     protected void GetCurrentTile()
     {
         currentTile = GetTargetTile(gameObject);
@@ -150,7 +156,7 @@ public class TacticsMovement : MonoBehaviour
             moving = false;
             
             //todo: fin du tour après les actions
-            TurnManagerV2.EndTurn();
+            EndOfMovement();
         }
     }
 
@@ -226,7 +232,6 @@ public class TacticsMovement : MonoBehaviour
         List<Tile> closedList = new List<Tile>();
         
         openList.Add(currentTile);
-        //currentTile.parent = ??;
         currentTile.h = Vector3.Distance(currentTile.transform.position, targetTile.transform.position);
         currentTile.f = currentTile.h;
 
@@ -293,5 +298,12 @@ public class TacticsMovement : MonoBehaviour
         list.Remove(lowest);
         
         return lowest;
+    }
+
+    protected virtual void EndOfMovement()
+    {
+        //Fin du Soulevement du pion lors du mouvement
+        transform.GetChild(0).Translate(0,-MoveY,0);
+        passM = false;
     }
 }
