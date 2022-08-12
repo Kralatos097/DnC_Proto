@@ -7,12 +7,14 @@ public class PlayerMovement : TacticsMovement
 {
     private UIManager _uiManager;
     private bool pass = false;
+    private Vector3 _lastPos;
     
     // Start is called before the first frame update
     void Start()
     {
         _uiManager = FindObjectOfType<UIManager>();
         Init();
+        _lastPos = transform.position;
     }
 
     // Update is called once per frame
@@ -34,6 +36,7 @@ public class PlayerMovement : TacticsMovement
                 break;
             case Action.Move:
                 _uiManager.HideActionSelector();
+                
                 if(!moving)
                 {
                     //Début du Soulevement du pion lors du mouvement
@@ -54,6 +57,7 @@ public class PlayerMovement : TacticsMovement
                 break;
             case Action.Stay:
                 TurnManagerV2.EndTurn();
+                _lastPos = transform.position;
                 pass = false;
                 _uiManager.Reset();
                 break;
@@ -65,6 +69,12 @@ public class PlayerMovement : TacticsMovement
                     transform.GetChild(0).Translate(0,-MoveY,0);
                     passM = false;
                 }
+                break;
+            case Action.CancelMove:
+                transform.position = _lastPos;
+                _uiManager.alreadyMoved = false;
+                _uiManager.actionSelected = Action.Default;
+                _uiManager.ShowActionSelector();
                 break;
             default:
                 break;

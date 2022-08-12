@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,6 +35,10 @@ public class UIManager : MonoBehaviour
                     switch (actionSelected)
                     {
                         case Action.Default:
+                            if (alreadyMoved)
+                            {
+                                actionSelected = Action.CancelMove;
+                            }
                             return;
                         case Action.Move:
                             actionSelected = Action.Default;
@@ -60,7 +65,9 @@ public class UIManager : MonoBehaviour
         _actionSelectorShown = true;
         ActionSelectorCanvas.SetActive(true);
         
-        MoveButton.interactable = !alreadyMoved;
+        /*MoveButton.interactable = !alreadyMoved;*/
+        MoveButton.GetComponentInChildren<TextMeshProUGUI>().text = alreadyMoved ? "Return" : "Move";
+        
     }
 
     public void HideActionSelector()
@@ -71,8 +78,16 @@ public class UIManager : MonoBehaviour
 
     public void MoveSelected()
     {
-        actionSelected = Action.Move;
-        HideActionSelector();
+        if (alreadyMoved)
+        {
+            actionSelected = Action.CancelMove;
+            HideActionSelector();
+        }
+        else
+        {
+            actionSelected = Action.Move;
+            HideActionSelector();
+        }
     }
     
     public void AttackSelected()
@@ -101,4 +116,5 @@ public enum Action
     Move,
     Attack,
     Stay,
+    CancelMove,
 }

@@ -7,10 +7,18 @@ using Random = UnityEngine.Random;
 public class CombatStat : MonoBehaviour
 {
     public int initiative;
+
+    public int MaxHp;
+    private int _currHp;
     
     [HideInInspector] public int currInit;
 
     [HideInInspector] public bool isAlive = true;
+
+    private void Start()
+    {
+        _currHp = MaxHp;
+    }
 
     public void RollInit()
     {

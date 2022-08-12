@@ -306,4 +306,9 @@ public class TacticsMovement : MonoBehaviour
         transform.GetChild(0).Translate(0,-MoveY,0);
         passM = false;
     }
+
+    protected void Attack()
+    {
+        
+    }
 }
