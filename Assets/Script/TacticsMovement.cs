@@ -5,6 +5,7 @@ using System.IO;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class TacticsMovement : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class TacticsMovement : MonoBehaviour
     protected bool attacking = false;
     [SerializeField] protected int move = 3;
     [SerializeField] protected float moveSpeed = 2;
+    
+    [SerializeField] protected int atkRange = 3;
 
     protected float MoveY = 1f;
     protected bool passM = false;
@@ -67,6 +70,15 @@ public class TacticsMovement : MonoBehaviour
         {
             Tile t = tile.GetComponent<Tile>();
             t.FindNeighbors(null);
+        }
+    }
+    
+    protected void ComputeAdjacencyListAtk()
+    {
+        foreach (GameObject tile in tiles)
+        {
+            Tile t = tile.GetComponent<Tile>();
+            t.FindNeighborsAtk();
         }
     }
     
@@ -155,7 +167,6 @@ public class TacticsMovement : MonoBehaviour
             RemoveSelectableTile();
             moving = false;
             
-            //todo: fin du tour après les actions
             EndOfMovement();
         }
     }
@@ -307,7 +318,47 @@ public class TacticsMovement : MonoBehaviour
         passM = false;
     }
 
+    protected void AttackRange()
+    {
+        ComputeAdjacencyListAtk();
+        GetCurrentTile();
+
+        Queue<Tile> process = new Queue<Tile>();
+        
+        process.Enqueue(currentTile);
+        currentTile.visited = true;
+
+        while (process.Count > 0)
+        {
+            Tile t = process.Dequeue();
+            
+            selectableTiles.Add(t);
+            t.selectable = true;
+
+            if (t.distance < atkRange)
+            {
+                foreach (Tile tile in t.adjacencyList)
+                {
+                    if (!tile.visited)
+                    {
+                        tile.parent = t;
+                        tile.visited = true;
+                        tile.distance = 1 + t.distance;
+                        process.Enqueue(tile);
+                    }
+                }
+            }
+        }
+    }
+
     protected void Attack()
+    {
+        Debug.Log("ATTACKING !");
+        RemoveSelectableTile();
+        EndOfAttack();
+    }
+
+    protected virtual void EndOfAttack()
     {
         
     }

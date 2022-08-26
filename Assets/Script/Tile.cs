@@ -69,6 +69,16 @@ public class Tile : MonoBehaviour
         CheckTile(Vector3.right, target);
         CheckTile(Vector3.left, target);
     }
+    
+    public void FindNeighborsAtk()
+    {
+        Reset();
+        
+        CheckTileAtk(Vector3.forward);
+        CheckTileAtk(Vector3.back);
+        CheckTileAtk(Vector3.right);
+        CheckTileAtk(Vector3.left);
+    }
 
     public void CheckTile(Vector3 dir, Tile target)
     {
@@ -88,5 +98,32 @@ public class Tile : MonoBehaviour
                 }
             }
         }
+    }
+    
+    public void CheckTileAtk(Vector3 dir)
+    {
+        Vector3 halfExtents = new Vector3(.25f,.25f,.25f);
+        Collider[] colliders = Physics.OverlapBox(transform.position + dir, halfExtents);
+
+        foreach (Collider item in colliders)
+        {
+            Tile tile = item.GetComponent<Tile>();
+            if (tile != null)
+            {
+                RaycastHit hit;
+                adjacencyList.Add(tile);
+            }
+        }
+    }
+
+    public GameObject GetGameObjectOnTop()
+    {
+        RaycastHit hit;
+        Physics.Raycast(transform.position, Vector3.up, out hit, 1);
+        if (Physics.Raycast(transform.position, Vector3.up, out hit, 1))
+        {
+            return hit.transform.gameObject;
+        }
+        return null;
     }
 }

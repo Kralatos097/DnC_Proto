@@ -69,4 +69,9 @@ public class NPCMove : TacticsMovement
         base.EndOfMovement();
         TurnManagerV2.EndTurn();
     }
+    
+    protected override void EndOfAttack()
+    {
+        TurnManagerV2.EndTurn();
+    }
 }

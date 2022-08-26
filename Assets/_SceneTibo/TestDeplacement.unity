@@ -992,7 +992,7 @@ Transform:
   m_Children:
   - {fileID: 579847071}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &303570382
 MonoBehaviour:
@@ -1008,6 +1008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move: 3
   moveSpeed: 2
+  atkRange: 1
   actualTargetTile: {fileID: 0}
 --- !u!114 &303570383
 MonoBehaviour:
@@ -1022,6 +1023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initiative: 3
+  MaxHp: 0
   currInit: 0
   isAlive: 1
 --- !u!1 &386746511
@@ -1274,6 +1276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initiative: 2
+  MaxHp: 0
   currInit: 0
   isAlive: 1
 --- !u!114 &575249079
@@ -1290,6 +1293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move: 2
   moveSpeed: 2
+  atkRange: 3
   actualTargetTile: {fileID: 0}
 --- !u!136 &575249080
 CapsuleCollider:
@@ -1734,7 +1738,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1087955723
 PrefabInstance:
@@ -1847,7 +1851,7 @@ Transform:
   - {fileID: 1087955724}
   - {fileID: 255510672}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1169922928
 GameObject:
@@ -1944,7 +1948,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1374914673
 GameObject:
@@ -1977,7 +1981,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1374914676
 MonoBehaviour:
@@ -2188,7 +2192,7 @@ Transform:
   m_Children:
   - {fileID: 1705887663}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1418668509
 MonoBehaviour:
@@ -2204,6 +2208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move: 2
   moveSpeed: 2
+  atkRange: 3
   actualTargetTile: {fileID: 0}
 --- !u!114 &1418668510
 MonoBehaviour:
@@ -2218,6 +2223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initiative: 2
+  MaxHp: 0
   currInit: 0
   isAlive: 1
 --- !u!1 &1680749446
@@ -2631,6 +2637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initiative: 3
+  MaxHp: 0
   currInit: 0
   isAlive: 1
 --- !u!114 &1990601810
@@ -2647,6 +2654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   move: 3
   moveSpeed: 2
+  atkRange: 3
   actualTargetTile: {fileID: 0}
 --- !u!136 &1990601811
 CapsuleCollider:

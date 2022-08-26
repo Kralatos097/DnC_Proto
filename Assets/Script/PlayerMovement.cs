@@ -32,7 +32,9 @@ public class PlayerMovement : TacticsMovement
         switch(_uiManager.actionSelected)
         {
             case Action.Attack :
-                //todo: attack
+                _uiManager.HideActionSelector();
+                AttackRange();
+                CheckAttack();
                 break;
             case Action.Move:
                 _uiManager.HideActionSelector();
@@ -103,10 +105,42 @@ public class PlayerMovement : TacticsMovement
         }
     }
     
+    private void CheckAttack()
+    {
+        if(Input.GetMouseButtonUp(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay((Input.mousePosition));
+
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.CompareTag("Tile"))
+                {
+                    Tile t = hit.collider.GetComponent<Tile>();
+
+                    Debug.Log(t.GetGameObjectOnTop());
+
+                    bool passAtk = t.GetGameObjectOnTop() != null;
+
+                    if (t.selectable && passAtk)
+                    {
+                        Attack();
+                    }
+                }
+            }
+        }
+    }
+    
     protected override void EndOfMovement()
     {
         base.EndOfMovement();
         _uiManager.actionSelected = Action.Default;
         _uiManager.ShowActionSelector();
+    }
+    
+    protected override void EndOfAttack()
+    {
+        _uiManager.Reset();
+        TurnManagerV2.EndTurn();
     }
 }
