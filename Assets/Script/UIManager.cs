@@ -108,13 +108,9 @@ public class UIManager : MonoBehaviour
         actionSelected = Action.Default;
         alreadyMoved = false;
     }
-}
 
-public enum Action
-{
-    Default,
-    Move,
-    Attack,
-    Stay,
-    CancelMove,
+    public void WeaponSelection()
+    {
+        
+    }
 }

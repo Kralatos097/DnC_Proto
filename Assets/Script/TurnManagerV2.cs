@@ -39,11 +39,13 @@ public class TurnManagerV2 : MonoBehaviour
         if(pStatue)
         {
             //todo
+            Debug.Log("Victiore");
         }
         //Défaite player
         else
         {
             //todo
+            Debug.Log("Defeat");
         }
     }
     
@@ -51,6 +53,12 @@ public class TurnManagerV2 : MonoBehaviour
     {
         if (ArePlayersAlive() && AreEnnemisAlive())
         {
+            while(!turnOrder.Peek().GetComponent<CombatStat>().isAlive)
+            {
+                TacticsMovement DeadUnit = turnOrder.Dequeue();
+                Debug.Log("Dead");
+                Destroy(DeadUnit.gameObject);
+            }
             Debug.Log("Turn of : " + turnOrder.Peek().name);
             turnOrder.Peek().BeginTurn();
         }
@@ -138,6 +146,10 @@ public class TurnManagerV2 : MonoBehaviour
     {
         foreach (TacticsMovement unit in turnOrder)
         {
+            /*if (unit.gameObject.CompareTag("Player") && !unit.gameObject.GetComponent<CombatStat>().isAlive)
+            {
+                turnOrder.Dequeue();
+            }*/
             if(unit.gameObject.CompareTag("Player") && unit.gameObject.GetComponent<CombatStat>().isAlive)
             {
                 return true;
@@ -151,12 +163,15 @@ public class TurnManagerV2 : MonoBehaviour
     {
         foreach (TacticsMovement unit in turnOrder)
         {
+            /*if (unit.gameObject.CompareTag("Ennemi") && !unit.gameObject.GetComponent<CombatStat>().isAlive)
+            {
+                turnOrder.Dequeue();
+            }*/
             if (unit.gameObject.CompareTag("Ennemi") && unit.gameObject.GetComponent<CombatStat>().isAlive)
             {
                 return true;
             }
         }
-
         return false;
     }
 }

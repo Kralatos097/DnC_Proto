@@ -33,7 +33,7 @@ public class PlayerMovement : TacticsMovement
         {
             case Action.Attack :
                 _uiManager.HideActionSelector();
-                AttackRange();
+                AffAttackRange();
                 CheckAttack();
                 break;
             case Action.Move:
@@ -120,11 +120,13 @@ public class PlayerMovement : TacticsMovement
 
                     Debug.Log(t.GetGameObjectOnTop());
 
-                    bool passAtk = t.GetGameObjectOnTop() != null;
+                    bool passAtk = false;
+                    GameObject TargetGO = t.GetGameObjectOnTop();
+                    if(TargetGO != null) passAtk = TargetGO.CompareTag("Ennemi");
 
                     if (t.selectable && passAtk)
                     {
-                        Attack();
+                        Attack(TargetGO.GetComponent<CombatStat>());
                     }
                 }
             }

@@ -8,13 +8,13 @@ public class RotationArene : MonoBehaviour
     [SerializeField]
     private Transform CamHolder;
 
-    private void Update()
+    /*private void Update()
     {
         if (Input.GetKeyDown("space"))
         {
             RotateRight();
         }
-    }
+    }*/
 
     public void RotateLeft()
     {

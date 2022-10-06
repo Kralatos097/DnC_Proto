@@ -24,7 +24,7 @@ public class TacticsMovement : MonoBehaviour
     
     [SerializeField] protected int atkRange = 3;
 
-    protected float MoveY = 1f;
+    protected float MoveY = .75f;
     protected bool passM = false;
 
     private Vector3 velocity = new Vector3();
@@ -317,8 +317,51 @@ public class TacticsMovement : MonoBehaviour
         transform.GetChild(0).Translate(0,-MoveY,0);
         passM = false;
     }
+    
+    protected GameObject AlliesInAttackRange()
+    {
+        ComputeAdjacencyListAtk();
+        GetCurrentTile();
 
-    protected void AttackRange()
+        Queue<Tile> process = new Queue<Tile>();
+        
+        process.Enqueue(currentTile);
+        currentTile.visited = true;
+
+        while (process.Count > 0)
+        {
+            Tile t = process.Dequeue();
+            
+            selectableTiles.Add(t);
+
+            if (t.distance < atkRange)
+            {
+                foreach (Tile tile in t.adjacencyList)
+                {
+                    if (!tile.visited)
+                    {
+                        tile.parent = t;
+                        tile.visited = true;
+                        tile.distance = 1 + t.distance;
+                        process.Enqueue(tile);
+
+                        GameObject TGO = tile.GetGameObjectOnTop();
+                        if (TGO != null)
+                        {
+                            if (TGO.CompareTag("Player"))
+                            {
+                                return TGO;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    protected void AffAttackRange()
     {
         ComputeAdjacencyListAtk();
         GetCurrentTile();
@@ -351,10 +394,11 @@ public class TacticsMovement : MonoBehaviour
         }
     }
 
-    protected void Attack()
+    protected void Attack(CombatStat combatStat)
     {
-        Debug.Log("ATTACKING !");
         RemoveSelectableTile();
+        combatStat.currHp--;
+        Debug.Log("ATTACKING " + combatStat.gameObject.name + "!\n Now has : " + combatStat.currHp + " HP!");
         EndOfAttack();
     }
 

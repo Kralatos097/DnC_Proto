@@ -110,7 +110,7 @@ public class Tile : MonoBehaviour
             Tile tile = item.GetComponent<Tile>();
             if (tile != null)
             {
-                RaycastHit hit;
+                //RaycastHit hit;
                 adjacencyList.Add(tile);
             }
         }
