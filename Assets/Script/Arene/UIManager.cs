@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject EquipSelectorPanel;
     
     [HideInInspector] public StuffSelected stuffSelected = StuffSelected.Default;
-    private bool _equipSelectorShown = false;
+    /*private bool _equipSelectorShown = false;*/
 
     private Equipment equipmentOne = null;
     private int equipOneCd = 0;
@@ -95,7 +95,7 @@ public class UIManager : MonoBehaviour
     
     public void ShowEquipSelector()
     {
-        _equipSelectorShown = true;
+        /*_equipSelectorShown = true;*/
         EquipSelectorPanel.SetActive(true);
 
         if (equipmentOne == null)
@@ -153,7 +153,7 @@ public class UIManager : MonoBehaviour
 
     public void HideEquipSelector()
     {
-        _equipSelectorShown = false;
+        /*_equipSelectorShown = false;*/
         EquipSelectorPanel.SetActive(false);
     }
 
