@@ -72,6 +72,7 @@ public class TurnManagerV2 : MonoBehaviour
     {
         TacticsMovement unit = turnOrder.Dequeue();
         unit.EndTurn();
+        unit.EquipCDMinus(1);
         turnOrder.Enqueue(unit);
         StartTurn();
     }

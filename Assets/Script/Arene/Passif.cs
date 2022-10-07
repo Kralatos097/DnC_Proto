@@ -8,4 +8,9 @@ public class Passif : Stuff
     {
         throw new System.NotImplementedException();
     }
+
+    public override void Effect(CombatStat cs)
+    {
+        throw new System.NotImplementedException();
+    }
 }

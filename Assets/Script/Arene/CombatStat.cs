@@ -35,14 +35,6 @@ public class CombatStat : MonoBehaviour
 
     [HideInInspector] public bool isAlive = true;
 
-    //Todo
-    /*public Equipment equipmentOne;
-    public Equipment equipmentTwo;
-
-    public Consummable consummable;
-    
-    public Passif passif;*/
-
     private void Start()
     {
         currHp = MaxHp;

@@ -33,8 +33,12 @@ public class PlayerMovement : TacticsMovement
         {
             case Action.Attack :
                 _uiManager.HideActionSelector();
-                AffAttackRange();
-                CheckAttack();
+                _uiManager.SetStuff(equipmentOne,equipmentTwo,consummable);
+                _uiManager.SetCd(EquiOneCD, EquiTwoCD);
+                _uiManager.ShowEquipSelector();
+                _uiManager.actionSelected = Action.Equip;
+                /*AffAttackRange();
+                CheckAttack();*/
                 break;
             case Action.Move:
                 _uiManager.HideActionSelector();
@@ -77,6 +81,31 @@ public class PlayerMovement : TacticsMovement
                 _uiManager.alreadyMoved = false;
                 _uiManager.actionSelected = Action.Default;
                 _uiManager.ShowActionSelector();
+                break;
+            case Action.Equip:
+                switch(_uiManager.stuffSelected)
+                {
+                    case StuffSelected.EquipOne:
+                        atkRange = equipmentOne.Range;
+                        break;
+                    case StuffSelected.EquipTwo:
+                        atkRange = equipmentTwo.Range;
+                        break;
+                    case StuffSelected.Consum:
+                        atkRange = consummable.Range;
+                        break;
+                    case StuffSelected.Default:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                if(_uiManager.stuffSelected != StuffSelected.Default)
+                {
+                    _uiManager.HideEquipSelector();
+                    AffAttackRange();
+                    CheckAttack();
+                }
                 break;
             default:
                 break;
@@ -122,11 +151,30 @@ public class PlayerMovement : TacticsMovement
 
                     bool passAtk = false;
                     GameObject TargetGO = t.GetGameObjectOnTop();
-                    if(TargetGO != null) passAtk = TargetGO.CompareTag("Ennemi");
+                    if(TargetGO != null) passAtk = (TargetGO.CompareTag("Ennemi")||TargetGO.CompareTag("Player"));
 
                     if (t.selectable && passAtk)
                     {
-                        Attack(TargetGO.GetComponent<CombatStat>());
+                        int equip = 0;
+                        switch(_uiManager.stuffSelected)
+                        {
+                            
+                            case StuffSelected.EquipOne:
+                                equip = 1;
+                                break;
+                            case StuffSelected.EquipTwo:
+                                equip = 2;
+                                break;
+                            case StuffSelected.Consum:
+                                equip = 3;
+                                break;
+                            case StuffSelected.Default:
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                        
+                        Attack(TargetGO.GetComponent<CombatStat>(), equip);
                     }
                 }
             }

@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9121371b15b6b04d9ab53464911a00c, type: 3}
-  m_Name: "Ep\xE9e"
+  m_Script: {fileID: 11500000, guid: 68bff8a6cd047c1479f6fdae01dd8bf6, type: 3}
+  m_Name: Epee
   m_EditorClassIdentifier: 
-  Name: "Ep\xE9e"
   Logo: {fileID: 21300000, guid: f1f850f3a2b7cd343aeef2cf29bdf3a3, type: 3}
   equipType: 2
   Damage: 2
   CD: 1
+  Range: 1

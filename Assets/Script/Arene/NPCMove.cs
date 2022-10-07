@@ -23,7 +23,7 @@ public class NPCMove : TacticsMovement
         if (temp != null && !moving)
         {
             attacking = true;
-            Attack(temp.GetComponent<CombatStat>());
+            Attack(temp.GetComponent<CombatStat>(), 1);
         }
         else
         {
@@ -53,7 +53,7 @@ public class NPCMove : TacticsMovement
 
         if (_alreadyMoved && !canAtk)
         {
-            EndTurn();
+            EndTurnT();
         }
     }
 
@@ -93,10 +93,10 @@ public class NPCMove : TacticsMovement
     
     protected override void EndOfAttack()
     {
-        EndTurn();
+        EndTurnT();
     }
 
-    protected void EndTurn()
+    protected void EndTurnT()
     {
         TurnManagerV2.EndTurn();
         attacking = false;

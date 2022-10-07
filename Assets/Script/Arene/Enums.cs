@@ -2,8 +2,7 @@ public enum EquipType
 {
     Default,
     Self,
-    Cac,
-    Distance,
+    Cible,
 }
 
 public enum Action
@@ -12,5 +11,13 @@ public enum Action
     Move,
     Attack,
     Stay,
+    Equip,
     CancelMove,
+}
+public enum StuffSelected
+{
+    Default,
+    EquipOne,
+    EquipTwo,
+    Consum,
 }

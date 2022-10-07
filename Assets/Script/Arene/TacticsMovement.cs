@@ -6,6 +6,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class TacticsMovement : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class TacticsMovement : MonoBehaviour
     [SerializeField] protected int move = 3;
     [SerializeField] protected float moveSpeed = 2;
     
-    [SerializeField] protected int atkRange = 3;
+    protected int atkRange = 0;
 
     protected float MoveY = .75f;
     protected bool passM = false;
@@ -33,6 +34,16 @@ public class TacticsMovement : MonoBehaviour
     private float halfHeight = 0;
 
     [HideInInspector] public Tile actualTargetTile;
+
+    public Equipment equipmentOne;
+    protected int EquiOneCD = 0;
+    
+    public Equipment equipmentTwo;
+    protected int EquiTwoCD = 0;
+
+    public Consummable consummable;
+    
+    public Passif passif;
 
     protected void Init()
     {
@@ -394,10 +405,29 @@ public class TacticsMovement : MonoBehaviour
         }
     }
 
-    protected void Attack(CombatStat combatStat)
+    protected void Attack(CombatStat combatStat, int equip)
     {
         RemoveSelectableTile();
-        combatStat.currHp--;
+
+        switch (equip)
+        {
+            case 1:
+                equipmentOne.Effect(combatStat);
+                EquiOneCD = equipmentOne.CD;
+                break;
+            case 2:
+                equipmentTwo.Effect(combatStat);
+                EquiTwoCD = equipmentOne.CD;
+                break;
+            case 3:
+                consummable.Effect(combatStat);
+                consummable = null;
+                break;
+            default:
+                break;
+        }
+
+        /*combatStat.currHp--;*/
         Debug.Log("ATTACKING " + combatStat.gameObject.name + "!\n Now has : " + combatStat.currHp + " HP!");
         EndOfAttack();
     }
@@ -405,5 +435,17 @@ public class TacticsMovement : MonoBehaviour
     protected virtual void EndOfAttack()
     {
         
+    }
+
+    public void EquipCDMinus(int value)
+    {
+        /*Debug.Log(name + "\n" 
+                       + equipmentOne.currCD + "\n" 
+                       + equipmentTwo.currCD);
+        if (equipmentOne != null) equipmentOne.currCD-=value;
+        if (equipmentTwo != null) equipmentTwo.currCD-=value;
+
+        if (equipmentOne.currCD < 0) equipmentOne.currCD = 0;
+        if (equipmentTwo.currCD < 0) equipmentTwo.currCD = 0;*/
     }
 }
