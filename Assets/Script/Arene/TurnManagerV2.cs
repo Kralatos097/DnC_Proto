@@ -60,6 +60,7 @@ public class TurnManagerV2 : MonoBehaviour
                 Destroy(DeadUnit.gameObject);
             }
             Debug.Log("Turn of : " + turnOrder.Peek().name);
+            
             turnOrder.Peek().BeginTurn();
         }
         else

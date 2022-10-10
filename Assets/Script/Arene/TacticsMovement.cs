@@ -45,6 +45,10 @@ public class TacticsMovement : MonoBehaviour
     
     public Passif passif;
 
+    private Material _unitMat;
+    private Color _baseColor;
+    private Color _changeColor;
+
     protected void Init()
     {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
@@ -212,6 +216,7 @@ public class TacticsMovement : MonoBehaviour
     public void BeginTurn()
     {
         turn = true;
+        StartTurnClign();
     }
 
     public void EndTurn()
@@ -439,13 +444,48 @@ public class TacticsMovement : MonoBehaviour
 
     public void EquipCDMinus(int value)
     {
-        /*Debug.Log(name + "\n" 
-                       + equipmentOne.currCD + "\n" 
-                       + equipmentTwo.currCD);
-        if (equipmentOne != null) equipmentOne.currCD-=value;
-        if (equipmentTwo != null) equipmentTwo.currCD-=value;
+        if (equipmentOne != null) EquiOneCD-=value;
+        if (equipmentTwo != null) EquiOneCD-=value;
 
-        if (equipmentOne.currCD < 0) equipmentOne.currCD = 0;
-        if (equipmentTwo.currCD < 0) equipmentTwo.currCD = 0;*/
+        if (EquiOneCD < 0) EquiOneCD = 0;
+        if (EquiOneCD < 0) EquiOneCD = 0;
+    }
+
+    public void StartTurnClign()
+    {
+        _unitMat = transform.GetChild(0).GetComponent<Renderer>().material;
+        
+        _baseColor = _unitMat.color;
+        _changeColor = new Color(1f, .5f, .5f);
+        
+        ColorClign();
+    }
+    
+    public void DamageClign()
+    {
+        _unitMat = transform.GetChild(0).GetComponent<Renderer>().material;
+        
+        _baseColor = _unitMat.color;
+        _changeColor = new Color(1,1,1,.5f);
+        
+        ColorClign();
+    }
+
+    protected void ColorClign()
+    {
+        Invoke("ChangeColorChange", 0);
+        Invoke("ChangeColorBase", .3f);
+        Invoke("ChangeColorChange", .5f);
+        Invoke("ChangeColorBase", .8f);
+    }
+
+    protected void ChangeColorBase()
+    {
+        _unitMat.color = _baseColor;
+    }
+    
+    protected void ChangeColorChange()
+    {
+        _unitMat.color = _changeColor;
     }
 }

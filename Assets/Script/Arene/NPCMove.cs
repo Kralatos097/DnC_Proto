@@ -17,19 +17,22 @@ public class NPCMove : TacticsMovement
     void Update()
     {
         if(!turn) return;
+        atkRange = equipmentOne.Range;
         bool canAtk = true;
 
         GameObject temp = AlliesInAttackRange();
         if (temp != null && !moving)
         {
+            Debug.Log("Ennemi Atk !");
             attacking = true;
             Attack(temp.GetComponent<CombatStat>(), 1);
+            return;
         }
         else
         {
             canAtk = false;
         }
-        if (!_alreadyMoved && !attacking)
+        if(!_alreadyMoved || !attacking)
         {
             if (!moving)
             {
@@ -48,6 +51,7 @@ public class NPCMove : TacticsMovement
             else
             {
                 Move();
+                canAtk = true;
             }
         }
 
