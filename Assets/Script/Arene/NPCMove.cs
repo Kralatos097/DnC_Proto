@@ -17,10 +17,13 @@ public class NPCMove : TacticsMovement
     void Update()
     {
         if(!turn) return;
+        PlayersTurn = false;
+
         atkRange = equipmentOne.Range;
         bool canAtk = true;
 
         GameObject temp = AlliesInAttackRange();
+        RemoveSelectableTile();
         if (temp != null && !moving)
         {
             Debug.Log("Ennemi Atk !");
@@ -32,7 +35,7 @@ public class NPCMove : TacticsMovement
         {
             canAtk = false;
         }
-        if(!_alreadyMoved || !attacking)
+        if(!_alreadyMoved && !attacking)
         {
             if (!moving)
             {

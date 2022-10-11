@@ -11,6 +11,7 @@ using UnityEngine.UI;
 public class TacticsMovement : MonoBehaviour
 {
     protected bool turn = false;
+    public static bool PlayersTurn = false;
     
     private List<Tile> selectableTiles = new List<Tile>();
     private GameObject[] tiles;
@@ -215,7 +216,6 @@ public class TacticsMovement : MonoBehaviour
 
     public void BeginTurn()
     {
-        turn = true;
         StartTurnClign();
     }
 
@@ -373,7 +373,6 @@ public class TacticsMovement : MonoBehaviour
                 }
             }
         }
-
         return null;
     }
 
@@ -418,14 +417,17 @@ public class TacticsMovement : MonoBehaviour
         {
             case 1:
                 equipmentOne.Effect(combatStat);
+                combatStat.gameObject.GetComponent<TacticsMovement>().DamageClign();
                 EquiOneCD = equipmentOne.CD;
                 break;
             case 2:
                 equipmentTwo.Effect(combatStat);
+                combatStat.gameObject.GetComponent<TacticsMovement>().DamageClign();
                 EquiTwoCD = equipmentOne.CD;
                 break;
             case 3:
                 consummable.Effect(combatStat);
+                combatStat.gameObject.GetComponent<TacticsMovement>().DamageClign();
                 consummable = null;
                 break;
             default:
@@ -458,7 +460,9 @@ public class TacticsMovement : MonoBehaviour
         _baseColor = _unitMat.color;
         _changeColor = new Color(1f, .5f, .5f);
         
-        ColorClign();
+        float timing = 0.3f;
+        ColorClign(timing);
+        Invoke("TrueBeginTurn",timing*3);
     }
     
     public void DamageClign()
@@ -467,16 +471,22 @@ public class TacticsMovement : MonoBehaviour
         
         _baseColor = _unitMat.color;
         _changeColor = new Color(1,1,1,.5f);
-        
-        ColorClign();
+
+        float timing = 0.2f;
+        ColorClign(timing);
     }
 
-    protected void ColorClign()
+    protected void ColorClign(float t)
     {
-        Invoke("ChangeColorChange", 0);
-        Invoke("ChangeColorBase", .3f);
-        Invoke("ChangeColorChange", .5f);
-        Invoke("ChangeColorBase", .8f);
+        ChangeColorChange();
+        Invoke("ChangeColorBase", t);
+        Invoke("ChangeColorChange", t*2);
+        Invoke("ChangeColorBase", t*3);
+    }
+
+    protected void TrueBeginTurn()
+    {
+        turn = true;
     }
 
     protected void ChangeColorBase()

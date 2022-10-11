@@ -8,19 +8,22 @@ public class PlayerMovement : TacticsMovement
     private UIManager _uiManager;
     private bool pass = false;
     private Vector3 _lastPos;
-    
+    private Quaternion _lastRot;
+
     // Start is called before the first frame update
     void Start()
     {
         _uiManager = FindObjectOfType<UIManager>();
         Init();
         _lastPos = transform.position;
+        _lastRot = transform.rotation;
     }
 
     // Update is called once per frame
     void Update()
     {
         if(!turn) return;
+        PlayersTurn = true;
 
         //display action Selector on turn start
         if (!pass)
@@ -64,6 +67,7 @@ public class PlayerMovement : TacticsMovement
             case Action.Stay:
                 TurnManagerV2.EndTurn();
                 _lastPos = transform.position;
+                _lastRot = transform.rotation;
                 pass = false;
                 _uiManager.Reset();
                 break;
@@ -78,6 +82,8 @@ public class PlayerMovement : TacticsMovement
                 break;
             case Action.CancelMove:
                 transform.position = _lastPos;
+                transform.rotation = _lastRot;
+                
                 _uiManager.alreadyMoved = false;
                 _uiManager.actionSelected = Action.Default;
                 _uiManager.ShowActionSelector();

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer overlay;
+
     public bool walkable = true;
     public bool current = false;
     public bool target = false;
@@ -24,21 +26,23 @@ public class Tile : MonoBehaviour
 
     private void Update()
     {
+        if(!TacticsMovement.PlayersTurn) return;
+
         if(current)
         {
-            GetComponent<Renderer>().material.color = Color.magenta;
+            overlay.color = new Color(1,0,1,.5f);
         }
         else if(target)
         {
-            GetComponent<Renderer>().material.color = Color.green;
+            overlay.color = new Color(0,1,0,.5f);
         }
         else if(selectable)
         {
-            GetComponent<Renderer>().material.color = Color.red;
+            overlay.color = new Color(1,0,0,.5f);
         }
         else
         {
-            GetComponent<Renderer>().material.color = Color.white;
+            overlay.color = new Color(1,1,1,0);
         }
     }
 

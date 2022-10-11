@@ -6,12 +6,16 @@ using Random = UnityEngine.Random;
 
 public class TurnManagerV2 : MonoBehaviour
 {
+    [SerializeField] private Transform CombatEndCanvas;
+    private static Transform _combatEndCanvas;
+    
     private static Queue<TacticsMovement> turnOrder = new Queue<TacticsMovement>();
     private static List<TacticsMovement> unitsList = new List<TacticsMovement>();
 
     private void Start()
     {
         Invoke(nameof(LateStart), 1);
+        _combatEndCanvas = CombatEndCanvas;
     }
     
     private void LateStart()
@@ -19,17 +23,9 @@ public class TurnManagerV2 : MonoBehaviour
         StartCombat();
     }
 
-    private void Update()
-    {
-        
-    }
-
     static void StartCombat()
     {
         ListToQueue();
-        
-        Debug.Log(turnOrder.Count);
-        
         StartTurn();
     }
 
@@ -40,12 +36,14 @@ public class TurnManagerV2 : MonoBehaviour
         {
             //todo
             Debug.Log("Victiore");
+            _combatEndCanvas.GetChild(0).gameObject.SetActive(true);
         }
         //Défaite player
         else
         {
             //todo
             Debug.Log("Defeat");
+            _combatEndCanvas.GetChild(1).gameObject.SetActive(true);
         }
     }
     
@@ -65,7 +63,7 @@ public class TurnManagerV2 : MonoBehaviour
         }
         else
         {
-            EndCombat(AreEnnemisAlive());
+            EndCombat(ArePlayersAlive());
         }
     }
 
@@ -75,6 +73,7 @@ public class TurnManagerV2 : MonoBehaviour
         unit.EndTurn();
         unit.EquipCDMinus(1);
         turnOrder.Enqueue(unit);
+        TacticsMovement.PlayersTurn = false;
         StartTurn();
     }
 

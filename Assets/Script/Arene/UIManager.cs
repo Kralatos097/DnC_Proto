@@ -33,8 +33,11 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonUp(0) && !_actionSelectorShown && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonUp(0) && !_actionSelectorShown && !EventSystem.current.IsPointerOverGameObject() && TacticsMovement.PlayersTurn)
+        {
+            //todo ne pas afficher quand on clique en dehors des ranges
             ShowActionSelector();
+        }
             
         if (Input.GetMouseButtonUp(1))//On release right click
         {
