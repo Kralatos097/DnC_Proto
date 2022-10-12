@@ -89,6 +89,7 @@ public class PlayerMovement : TacticsMovement
                 _uiManager.ShowActionSelector();
                 break;
             case Action.Equip:
+                _uiManager.HideActionSelector();
                 switch(_uiManager.stuffSelected)
                 {
                     case StuffSelected.EquipOne:

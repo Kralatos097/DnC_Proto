@@ -37,6 +37,7 @@ public class TurnManagerV2 : MonoBehaviour
             //todo
             Debug.Log("Victiore");
             _combatEndCanvas.GetChild(0).gameObject.SetActive(true);
+            //Todo: changement de scene apres un clic
         }
         //Défaite player
         else
@@ -44,6 +45,7 @@ public class TurnManagerV2 : MonoBehaviour
             //todo
             Debug.Log("Defeat");
             _combatEndCanvas.GetChild(1).gameObject.SetActive(true);
+            //Todo: changement de scene apres un clic
         }
     }
     

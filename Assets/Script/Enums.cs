@@ -1,3 +1,14 @@
+//Dungeon
+public enum RoomType
+{
+    Normal,
+    Boss,
+    Treasure,
+    Fighting,
+    Starting,
+}
+
+//Arene
 public enum EquipType
 {
     Default,

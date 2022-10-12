@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0) && !_actionSelectorShown && !EventSystem.current.IsPointerOverGameObject() && TacticsMovement.PlayersTurn)
         {
-            //todo ne pas afficher quand on clique en dehors des ranges
+            //todo mieux gerer quand on clique en dehors des ranges
             ShowActionSelector();
         }
             

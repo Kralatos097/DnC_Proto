@@ -1,71 +1,173 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class DonjonTile : MonoBehaviour
 {
-    public bool FightingRoom = false;
+    //public string RoomFightScene;
+
+    public SpriteRenderer Overlay;
+    public SpriteRenderer OverlayS;
+    public SpriteRenderer OverlayE;
+
+    public RoomType roomType = RoomType.Normal;
+    /*public bool FightingRoom = false;
     public bool TreasureRoom = false;
-    public bool BossRoom = false;
+    public bool BossRoom = false;*/
     
-    public bool Emptied = false;
-
-    public string RoomScene;
-
-    public SpriteRenderer _renderer;
-    
-    private bool _selectable;
-
-    public bool Selectable
+    [Header("Room State")]
+    public bool selectable;
+    public bool emptied = false;
+    public bool walkedInto;
+    private bool _current = false;
+    public bool current
     {
-        get => _selectable;
-
+        get => _current;
         set
         {
-            _selectable = value;
+            _current = value;
 
-            if(_selectable)
-            {
-                _renderer.color = new Color(1,0,0,1);
-            }
-            else
-            {
-                _renderer.color = new Color(1, 1, 1, 0);
-            }
+            if(!_current) return;
+            if(walkedInto) return;
+        
+            DiscoverTiles();
+            walkedInto = true;
         }
     }
 
-    public void CheckAdjacentTiles()
+    [Header("Room Acces")]
+    public bool doorUp = false;
+    public bool doorDown = false;
+    public bool doorRight = false;
+    public bool doorLeft = false;
+
+    private Color currentColor;
+    private Color selectableColor;
+    private Color walkedIntoColor;
+
+    [Header("Room Sprite")]
+    public Sprite bossRoomSprite;
+    public Sprite treasureRoomSprite;
+    public Sprite startingRoomSprite;
+
+    private void Start()
     {
-        RaycastHit hit;
-        if (!Physics.Raycast(transform.position, Vector3.forward, out hit, 1)) return;
-        DonjonTile DjT = hit.collider.gameObject.GetComponent<DonjonTile>();
-        if (DjT != null)
+        currentColor = new Color(0, 1, 0, 0.3f);
+        selectableColor = new Color(.25f, .25f, .25f, 0.3f);
+        walkedIntoColor = new Color(1, 1, 1, 0.3f);
+
+        if (roomType == RoomType.Starting)
         {
-            DjT.Selectable = true;
-        }
-        
-        if (!Physics.Raycast(transform.position, Vector3.back, out hit, 1)) return;
-        DjT = hit.collider.gameObject.GetComponent<DonjonTile>();
-        if (DjT != null)
-        {
-            DjT.Selectable = true;
-        }
-        
-        if (!Physics.Raycast(transform.position, Vector3.right, out hit, 1)) return;
-        DjT = hit.collider.gameObject.GetComponent<DonjonTile>();
-        if (DjT != null)
-        {
-            DjT.Selectable = true;
-        }
-        
-        if (!Physics.Raycast(transform.position, Vector3.left, out hit, 1)) return;
-        DjT = hit.collider.gameObject.GetComponent<DonjonTile>();
-        if (DjT != null)
-        {
-            DjT.Selectable = true;
+            current = true;
+            selectable = true;
         }
     }
+
+    private void Update()
+    {
+        ShowTile();
+        
+        if(current)
+            ChangeColor(currentColor);
+        else if(selectable && !walkedInto)
+            ChangeColor(selectableColor);
+        else if(walkedInto)
+            ChangeColor(walkedIntoColor);
+
+        switch (roomType)
+        {
+            case RoomType.Normal:
+                break;
+            case RoomType.Boss:
+                ChangeSprite(bossRoomSprite);
+                break;
+            case RoomType.Treasure:
+                ChangeSprite(treasureRoomSprite);
+                break;
+            case RoomType.Fighting:
+                break;
+            case RoomType.Starting:
+                ChangeSprite(startingRoomSprite);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        OverlayE.gameObject.SetActive(emptied);
+
+    }
+
+    private void ChangeColor(Color color)
+    {
+        Overlay.color = color;
+    }
+    
+    private void ChangeSprite(Sprite sprite)
+    {
+        OverlayS.color = Color.white;
+        OverlayS.sprite = sprite;
+    }
+    
+    private void CleanSprite()
+    {
+        OverlayS.color = new Color(1,1,1,0);
+        OverlayS.sprite = null;
+    }
+
+    private void DiscoverTiles()
+    {
+        if(doorUp)
+        {
+            RaycastHit hit;
+            Physics.Raycast(transform.position, Vector3.forward, out hit, 1);
+            DonjonTile djTile =  hit.collider.GetComponent<DonjonTile>();
+            if(djTile != null)
+            {
+                djTile.selectable = true;
+            }
+        }
+        if(doorDown)
+        {
+            RaycastHit hit;
+            Physics.Raycast(transform.position, Vector3.back, out hit, 1);
+            DonjonTile djTile =  hit.collider.GetComponent<DonjonTile>();
+            if(djTile != null)
+            {
+                djTile.selectable = true;
+            }
+        }
+        if(doorRight)
+        {
+            RaycastHit hit;
+            Physics.Raycast(transform.position, Vector3.right, out hit, 1);
+            DonjonTile djTile =  hit.collider.GetComponent<DonjonTile>();
+            if(djTile != null)
+            {
+                djTile.selectable = true;
+            }
+        }
+        if(doorLeft)
+        {
+            RaycastHit hit;
+            Physics.Raycast(transform.position, Vector3.left, out hit, 1);
+            DonjonTile djTile =  hit.collider.GetComponent<DonjonTile>();
+            if(djTile != null)
+            {
+                djTile.selectable = true;
+            }
+        }
+    }
+
+    private void ShowTile()
+    {
+        foreach (Transform GO in transform)
+        {
+            GO.gameObject.SetActive(selectable);
+        }
+    }
+        
 }
