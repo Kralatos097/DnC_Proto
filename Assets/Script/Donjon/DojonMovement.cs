@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DojonMovement : MonoBehaviour
 {
@@ -9,18 +10,46 @@ public class DojonMovement : MonoBehaviour
 
     private DonjonTile currTile;
     private Vector3 target;
+    private bool _canMove = false;
 
     private void Start()
     {
         target = transform.position;
         Invoke("GetCurrentTile",.1f);
+        _canMove = true;
     }
 
     private void Update()
     {
-        CheckMove();
-        
-        MoveToTile(target);
+        if(_canMove)
+            CheckMove();
+        if (Vector3.Distance(transform.position, target) >= .02f)
+        {
+            _canMove = false;
+            MoveToTile(target);
+        }
+        else
+        {
+            //Todo: Lancer l'effet de la piece
+            GetCurrentTile();
+            switch (currTile.roomType)
+            {
+                case RoomType.Normal:
+                    break;
+                case RoomType.Boss:
+                    break;
+                case RoomType.Treasure:
+                    break;
+                case RoomType.Fighting:
+                    break;
+                case RoomType.Starting:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            _canMove = true;
+        }
     }
 
     public void GetCurrentTile()
