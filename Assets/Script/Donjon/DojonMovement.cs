@@ -15,7 +15,7 @@ public class DojonMovement : MonoBehaviour
     private void Start()
     {
         target = transform.position;
-        Invoke("GetCurrentTile",.1f);
+        GetCurrentTile();
         _canMove = true;
     }
 
@@ -25,31 +25,38 @@ public class DojonMovement : MonoBehaviour
             CheckMove();
         if (Vector3.Distance(transform.position, target) >= .02f)
         {
+            UiManagerDj.EnterRoomArtwork(RoomType.Starting);
             _canMove = false;
-            MoveToTile(target);
         }
         else
         {
+            if(currTile.emptied) return;
+            
             //Todo: Lancer l'effet de la piece
-            GetCurrentTile();
+            //GetCurrentTile();
+            UiManagerDj.EnterRoomArtwork(currTile.roomType);
             switch (currTile.roomType)
             {
                 case RoomType.Normal:
+                    //todo: fouille
                     break;
                 case RoomType.Boss:
+                    //todo: lance combat
                     break;
                 case RoomType.Treasure:
+                    //todo: fouille - rates speciaux
                     break;
                 case RoomType.Fighting:
+                    //todo: lance combat
                     break;
                 case RoomType.Starting:
-                    break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    break;
             }
-            
             _canMove = true;
         }
+        if(transform.position != target)
+            MoveToTile(target);
     }
 
     public void GetCurrentTile()
