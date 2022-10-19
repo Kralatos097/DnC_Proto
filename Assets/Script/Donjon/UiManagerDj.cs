@@ -87,7 +87,7 @@ public class UiManagerDj : MonoBehaviour
         ArtworkShown = true;
     }
 
-    public void ResetValues()
+    private void ResetValues()
     {
         BossPanel.SetActive(false);
         FightPanel.SetActive(false);
@@ -96,5 +96,10 @@ public class UiManagerDj : MonoBehaviour
         TreasurePanel.SetActive(false);
         FouilleSelectCanvas.SetActive(false);
         ArtworkShown = false;
+    }
+
+    public static void StuffChoice(Stuff stuff)
+    {
+        
     }
 }

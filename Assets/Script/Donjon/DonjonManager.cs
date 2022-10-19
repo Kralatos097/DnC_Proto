@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using UnityEngine.WSA;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
@@ -12,7 +14,10 @@ public class DonjonManager : MonoBehaviour
 {
     [Header("Values")]
     public int restValue;
-    
+
+    public string bossScene;
+    private static string _bossScene;
+
     [Header("Listes")]
     public List<string> fightingSceneList;
     private static List<string> _fightingSceneList;
@@ -29,6 +34,7 @@ public class DonjonManager : MonoBehaviour
         _fightingSceneList = fightingSceneList;
         _equipmentList = equipmentList;
         _consoList = consoList;
+        _bossScene = bossScene;
     }
 
     public static void LaunchRoomEffect(RoomEffect roomEffect)
@@ -36,6 +42,7 @@ public class DonjonManager : MonoBehaviour
         switch(roomEffect)
         {
             case RoomEffect.Boss:
+                LaunchBoss();
                 break;
             case RoomEffect.Treasure:
                 break;
@@ -45,6 +52,7 @@ public class DonjonManager : MonoBehaviour
             case RoomEffect.Rest:
                 break;
             case RoomEffect.Loot:
+                LaunchLoot();
                 break;
             case RoomEffect.Default:
             default:
@@ -71,11 +79,69 @@ public class DonjonManager : MonoBehaviour
         return sceneName;
     }
     
+    private static void LaunchBoss()
+    {
+        SceneManager.LoadSceneAsync(_bossScene);
+    }
+    
     //todo: loot
+    private static void LaunchLoot()
+    {
+        Stuff stuff = PickStuff();
+        UiManagerDj.StuffChoice(stuff);
+        
+        /*int rand = Random.Range(0, 20);
+        if(rand == 0)
+        {
+            //todo: Ambushed
+        }
+        else if (rand is > 0 and <= 3)
+        {
+            //todo: Trap
+        }
+        else if(rand is > 3 and <= 7)
+        {
+            Stuff stuff = PickStuff();
+            UiManagerDj.StuffChoice(stuff);
+        }
+        else if (rand is > 7 and <= 13)
+        {
+            //todo: Consumable
+            Consummable stuff = PickConsumable();
+        }
+        else
+        {
+            //todo: nothing
+        }*/
+    }
+
+    private static Stuff PickStuff()
+    {
+        int ind = Random.Range(0, _equipmentList.Count);
+        return _equipmentList[ind];
+    }
+    
+    private static Consummable PickConsumable()
+    {
+        int ind = Random.Range(0, _consoList.Count);
+        return _consoList[ind];
+    }
     
     //todo: rest
     
-    //todo: boss
-    
     //todo: treasure
+    private static void LaunchTreasure()
+    {
+        int rand = Random.Range(0, 5);
+        if(rand == 0)
+        {
+            //todo: Consumable
+            Consummable consumable = PickConsumable();
+        }
+        else
+        {
+            Stuff stuff = PickStuff();
+            UiManagerDj.StuffChoice(stuff);
+        }
+    }
 }

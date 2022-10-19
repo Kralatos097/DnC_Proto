@@ -2528,6 +2528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1dd6914467f1e94ebd9a454281d7f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  restValue: 6
   fightingSceneList:
   - Fight
   - Fight 1
@@ -2538,6 +2539,7 @@ MonoBehaviour:
   equipmentList:
   - {fileID: 11400000, guid: 0ad0edab5da9b224b9f493bdbe8b67a9, type: 2}
   - {fileID: 11400000, guid: 1fbe077e5c40a3145aaf15f3ffa6f617, type: 2}
+  consoList: []
 --- !u!1 &1712951034
 GameObject:
   m_ObjectHideFlags: 0
