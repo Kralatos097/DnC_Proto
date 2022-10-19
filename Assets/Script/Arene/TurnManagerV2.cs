@@ -12,6 +12,8 @@ public class TurnManagerV2 : MonoBehaviour
     private static Queue<TacticsMovement> turnOrder = new Queue<TacticsMovement>();
     private static List<TacticsMovement> unitsList = new List<TacticsMovement>();
 
+    public bool startCombat = false;
+
     private void Start()
     {
         Invoke(nameof(LateStart), 1);
@@ -23,7 +25,7 @@ public class TurnManagerV2 : MonoBehaviour
         StartCombat();
     }
 
-    static void StartCombat()
+    void StartCombat()
     {
         ListToQueue();
         StartTurn();

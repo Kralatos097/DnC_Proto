@@ -21,11 +21,11 @@ public class DojonMovement : MonoBehaviour
 
     private void Update()
     {
-        if(_canMove)
+        if(_canMove && !UiManagerDj.ArtworkShown)
             CheckMove();
         if (Vector3.Distance(transform.position, target) >= .02f)
         {
-            UiManagerDj.EnterRoomArtwork(RoomType.Starting);
+            UiManagerDj.EnterRoomArtwork(RoomType.Starting, currTile.emptied);
             _canMove = false;
         }
         else
@@ -34,7 +34,7 @@ public class DojonMovement : MonoBehaviour
             
             //Todo: Lancer l'effet de la piece
             //GetCurrentTile();
-            UiManagerDj.EnterRoomArtwork(currTile.roomType);
+            UiManagerDj.EnterRoomArtwork(currTile.roomType, currTile.emptied);
             switch (currTile.roomType)
             {
                 case RoomType.Normal:

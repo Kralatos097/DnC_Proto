@@ -8,6 +8,16 @@ public enum RoomType
     Starting,
 }
 
+public enum RoomEffect
+{
+    Default,
+    Boss,
+    Treasure,
+    Fight,
+    Rest,
+    Loot,
+}
+
 //Arene
 public enum EquipType
 {

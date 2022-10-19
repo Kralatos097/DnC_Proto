@@ -4,5 +4,29 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_SceneTibo/TestDeplacement.unity
+    guid: 7187e9952efd14642b9dda9e8117906d
+  - enabled: 1
+    path: Assets/_SceneTibo/ProtoDJ.unity
+    guid: 95ee46a7be608df468dcb78f84c655e7
+  - enabled: 1
+    path: Assets/_SceneTibo/Test/Fight.unity
+    guid: e8eb91c903683d14f969602bf3681568
+  - enabled: 1
+    path: Assets/_SceneTibo/Test/Fight 1.unity
+    guid: cf63df55f99699240b7ead24ea74d3a7
+  - enabled: 1
+    path: Assets/_SceneTibo/Test/Fight 2.unity
+    guid: 21baa4a2738310e40b2e719df94b7ab1
+  - enabled: 1
+    path: Assets/_SceneTibo/Test/Fight 3.unity
+    guid: ce244d319df2ef24b9ec5b3547934485
+  - enabled: 1
+    path: Assets/_SceneTibo/Test/Fight 4.unity
+    guid: 946321be03f4f8444b715396a4b1f1aa
+  - enabled: 1
+    path: Assets/_SceneTibo/Test/Fight 5.unity
+    guid: 6c67dccc04ba0154c8d7529e59094075
   m_configObjects: {}

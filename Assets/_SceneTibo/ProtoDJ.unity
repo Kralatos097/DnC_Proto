@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667555, g: 0.48427182, b: 0.5645241, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -206,7 +206,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5488123}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1666341554}
+        m_TargetAssemblyTypeName: UiManagerDj, Assembly-CSharp
+        m_MethodName: RestSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5488123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1095,6 +1107,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2452694794713074804, guid: 569192100ffd6264a920c6af30004859, type: 3}
+      propertyPath: roomType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2452694794713074804, guid: 569192100ffd6264a920c6af30004859, type: 3}
       propertyPath: doorRight
       value: 0
       objectReference: {fileID: 0}
@@ -1668,7 +1684,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1167932401}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1666341554}
+        m_TargetAssemblyTypeName: UiManagerDj, Assembly-CSharp
+        m_MethodName: LootSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1167932401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2447,6 +2475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1666341555}
   - component: {fileID: 1666341554}
+  - component: {fileID: 1666341556}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2487,6 +2516,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1666341556
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666341553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1dd6914467f1e94ebd9a454281d7f80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fightingSceneList:
+  - Fight
+  - Fight 1
+  - Fight 2
+  - Fight 3
+  - Fight 4
+  - Fight 5
+  equipmentList:
+  - {fileID: 11400000, guid: 0ad0edab5da9b224b9f493bdbe8b67a9, type: 2}
+  - {fileID: 11400000, guid: 1fbe077e5c40a3145aaf15f3ffa6f617, type: 2}
 --- !u!1 &1712951034
 GameObject:
   m_ObjectHideFlags: 0

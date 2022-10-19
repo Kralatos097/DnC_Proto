@@ -14,22 +14,35 @@ public class UiManagerDj : MonoBehaviour
     [SerializeField] private GameObject FouilleSelectCanvas;
 
     private static RoomType _roomType = RoomType.Starting;
+    private RoomEffect _roomEffect;
     
-    private bool _looted = false;
+    private static bool _looted = false;
+    [HideInInspector] public static bool ArtworkShown = false;
 
     private void Update()
     {
+        if (Input.GetMouseButtonDown(0) && ArtworkShown)
+        {
+            //todo effet
+            DonjonManager.LaunchRoomEffect(_roomEffect);
+            ResetValues();
+        }
+        
         if(_looted) return;
         switch (_roomType)
         {
             case RoomType.Boss:
                 BossPanel.SetActive(true);
+                _roomEffect = RoomEffect.Boss;
+                ArtworkShown = true;
                 break;
             case RoomType.Treasure:
                 FouilleSelectCanvas.SetActive(true);
                 break;
             case RoomType.Fighting:
                 FightPanel.SetActive(true);
+                _roomEffect = RoomEffect.Fight;
+                ArtworkShown = true;
                 break;
             case RoomType.Normal:
                 FouilleSelectCanvas.SetActive(true);
@@ -42,9 +55,10 @@ public class UiManagerDj : MonoBehaviour
         }
     }
 
-    public static void EnterRoomArtwork(RoomType roomType)
+    public static void EnterRoomArtwork(RoomType roomType, bool looted)
     {
         _roomType = roomType;
+        _looted = looted;
     }
     
     public void LootSelected()
@@ -53,19 +67,24 @@ public class UiManagerDj : MonoBehaviour
         {
             case RoomType.Normal:
                 FouillePanel.SetActive(true);
+                _roomEffect = RoomEffect.Loot;
+                ArtworkShown = true;
                 break;
             case RoomType.Treasure:
                 TreasurePanel.SetActive(true);
+                _roomEffect = RoomEffect.Treasure;
+                ArtworkShown = true;
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        _looted = true;
     }
 
     public void RestSelected()
     {
         ReposPanel.SetActive(true);
+        _roomEffect = RoomEffect.Rest;
+        ArtworkShown = true;
     }
 
     public void ResetValues()
@@ -76,5 +95,6 @@ public class UiManagerDj : MonoBehaviour
         ReposPanel.SetActive(false);
         TreasurePanel.SetActive(false);
         FouilleSelectCanvas.SetActive(false);
+        ArtworkShown = false;
     }
 }
