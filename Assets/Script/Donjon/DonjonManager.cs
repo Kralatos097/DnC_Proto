@@ -28,6 +28,8 @@ public class DonjonManager : MonoBehaviour
     public List<Consummable> consoList;
     private static List<Consummable> _consoList;
 
+    public static DonjonTile CurrentTile;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,17 +41,20 @@ public class DonjonManager : MonoBehaviour
 
     public static void LaunchRoomEffect(RoomEffect roomEffect)
     {
+        CurrentTile.emptied = true;
         switch(roomEffect)
         {
             case RoomEffect.Boss:
                 LaunchBoss();
                 break;
             case RoomEffect.Treasure:
+                //todo
                 break;
             case RoomEffect.Fight:
                 LaunchFight();
                 break;
             case RoomEffect.Rest:
+                //todo
                 break;
             case RoomEffect.Loot:
                 LaunchLoot();
@@ -88,8 +93,8 @@ public class DonjonManager : MonoBehaviour
     private static void LaunchLoot()
     {
         Stuff stuff = PickStuff();
-        UiManagerDj.StuffChoice(stuff);
-        
+        UiManagerDj.StuffChoiceOne(stuff);
+
         /*int rand = Random.Range(0, 20);
         if(rand == 0)
         {
@@ -141,7 +146,7 @@ public class DonjonManager : MonoBehaviour
         else
         {
             Stuff stuff = PickStuff();
-            UiManagerDj.StuffChoice(stuff);
+            UiManagerDj.StuffChoiceOne(stuff);
         }
     }
 }

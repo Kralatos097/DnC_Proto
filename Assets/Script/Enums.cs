@@ -42,3 +42,11 @@ public enum StuffSelected
     EquipTwo,
     Consum,
 }
+
+public enum Perso
+{
+    Warrior,
+    Cleric,
+    Thief,
+    Wizard,
+}

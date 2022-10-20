@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UiManagerDj : MonoBehaviour
 {
@@ -12,12 +13,28 @@ public class UiManagerDj : MonoBehaviour
     [SerializeField] private GameObject ReposPanel;
 
     [SerializeField] private GameObject FouilleSelectCanvas;
+    
+    [SerializeField] private GameObject StuffCharaSelectPanel;
+    [SerializeField] private GameObject StuffReplaceSelectPanel;
+    [SerializeField] private GameObject StuffIconPanel;
+
+    public static Action<Stuff> StuffChoiceOne;
+    public static Action<Stuff> StuffChoiceTwo;
 
     private static RoomType _roomType = RoomType.Starting;
     private RoomEffect _roomEffect;
+
+    private Stuff newStuff;
     
-    private static bool _looted = false;
     [HideInInspector] public static bool ArtworkShown = false;
+
+    private bool _pass = true;
+
+    private void Start()
+    {
+        StuffChoiceOne = StuffChoice;
+        //StuffChoiceTwo = ;
+    }
 
     private void Update()
     {
@@ -27,14 +44,20 @@ public class UiManagerDj : MonoBehaviour
             DonjonManager.LaunchRoomEffect(_roomEffect);
             ResetValues();
         }
-        
-        if(_looted) return;
+
+        if(DonjonManager.CurrentTile.emptied) return;
+        if(!_pass)
+        {
+            FouilleSelectCanvas.SetActive(false);
+            return;
+        }
         switch (_roomType)
         {
             case RoomType.Boss:
                 BossPanel.SetActive(true);
                 _roomEffect = RoomEffect.Boss;
                 ArtworkShown = true;
+                _pass = false;
                 break;
             case RoomType.Treasure:
                 FouilleSelectCanvas.SetActive(true);
@@ -55,14 +78,14 @@ public class UiManagerDj : MonoBehaviour
         }
     }
 
-    public static void EnterRoomArtwork(RoomType roomType, bool looted)
+    public static void EnterRoomArtwork(RoomType roomType)
     {
         _roomType = roomType;
-        _looted = looted;
     }
     
     public void LootSelected()
     {
+        _pass = false;
         switch (_roomType)
         {
             case RoomType.Normal:
@@ -82,6 +105,7 @@ public class UiManagerDj : MonoBehaviour
 
     public void RestSelected()
     {
+        _pass = false;
         ReposPanel.SetActive(true);
         _roomEffect = RoomEffect.Rest;
         ArtworkShown = true;
@@ -96,10 +120,55 @@ public class UiManagerDj : MonoBehaviour
         TreasurePanel.SetActive(false);
         FouilleSelectCanvas.SetActive(false);
         ArtworkShown = false;
+        _pass = true;
     }
 
-    public static void StuffChoice(Stuff stuff)
+    private void StuffChoice(Stuff stuff)
     {
-        
+        StuffCharaSelectPanel.SetActive(true);
+        newStuff = stuff;
+    }
+
+    public void CharaSelect(int nb)
+    {
+        switch(nb)
+        {
+            case 0: //Warrior
+                //todo: recup l'equipement du perso et le mettre dans l'UI de selection d'equipement puis l'afficher
+                StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = newStuff.Logo;
+                EquipChoiceIconChange(WarriorInfo.Equipment1, StuffIconPanel.transform.GetChild(1).gameObject);
+                EquipChoiceIconChange(WarriorInfo.Equipment2, StuffIconPanel.transform.GetChild(2).gameObject);
+                EquipChoiceIconChange(WarriorInfo.Passif, StuffIconPanel.transform.GetChild(3).gameObject);
+                EquipChoiceIconChange(WarriorInfo.Consumable, StuffIconPanel.transform.GetChild(4).gameObject);
+                break;
+            
+            case 1: //Thief
+                break;
+            
+            case 2: //Cleric
+                break;
+            
+            case 3: //Wizard
+                break;
+            
+            default:
+                break;
+        }
+        StuffCharaSelectPanel.SetActive(false);
+        StuffReplaceSelectPanel.SetActive(true);
+    }
+
+    private void EquipChoiceIconChange(Stuff stuff, GameObject Go)
+    {
+        if (stuff != null)
+        {
+            Go.GetComponent<Image>().sprite = stuff.Logo;
+            Go.GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            Go.GetComponent<Image>().sprite = null;
+            Go.GetComponent<Button>().interactable = false;
+        }
     }
 }

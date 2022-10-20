@@ -184,6 +184,7 @@ public class PlayerMovement : TacticsMovement
                         Attack(TargetGO.GetComponent<CombatStat>(), equip);
                     }
                 }
+                //todo: else pour si on click sur la figurine
             }
         }
     }

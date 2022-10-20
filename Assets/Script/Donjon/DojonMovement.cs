@@ -8,14 +8,13 @@ public class DojonMovement : MonoBehaviour
 {
     public float speed;
 
-    private DonjonTile currTile;
     private Vector3 target;
     private bool _canMove = false;
 
     private void Start()
     {
         target = transform.position;
-        GetCurrentTile();
+        DonjonManager.CurrentTile = GetCurrentTile();
         _canMove = true;
     }
 
@@ -25,17 +24,17 @@ public class DojonMovement : MonoBehaviour
             CheckMove();
         if (Vector3.Distance(transform.position, target) >= .02f)
         {
-            UiManagerDj.EnterRoomArtwork(RoomType.Starting, currTile.emptied);
+            UiManagerDj.EnterRoomArtwork(RoomType.Starting);
             _canMove = false;
         }
         else
         {
-            if(currTile.emptied) return;
+            if(DonjonManager.CurrentTile.emptied) return;
             
             //Todo: Lancer l'effet de la piece
             //GetCurrentTile();
-            UiManagerDj.EnterRoomArtwork(currTile.roomType, currTile.emptied);
-            switch (currTile.roomType)
+            UiManagerDj.EnterRoomArtwork(DonjonManager.CurrentTile.roomType);
+            /*switch (DonjonManager.CurrentTile.roomType)
             {
                 case RoomType.Normal:
                     //todo: fouille
@@ -52,22 +51,26 @@ public class DojonMovement : MonoBehaviour
                 case RoomType.Starting:
                 default:
                     break;
-            }
+            }*/
             _canMove = true;
         }
         if(transform.position != target)
             MoveToTile(target);
     }
 
-    public void GetCurrentTile()
+    public DonjonTile GetCurrentTile()
     {
         RaycastHit hit;
         Physics.Raycast(transform.position, Vector3.down, out hit, 1);
         DonjonTile djTile =  hit.collider.transform.gameObject.GetComponent<DonjonTile>();
         if(djTile != null)
         {
-            currTile = djTile;
             djTile.current = true;
+            return djTile;
+        }
+        else
+        {
+            return null;
         }
     }
 
@@ -87,10 +90,10 @@ public class DojonMovement : MonoBehaviour
                     if (t.selectable)
                     {
                         //Todo move to tile
-                        currTile.current = false;
+                        DonjonManager.CurrentTile.current = false;
                         target = new Vector3(t.transform.position.x, transform.position.y, t.transform.position.z);
                         t.current = true;
-                        currTile = t;
+                        DonjonManager.CurrentTile = t;
                     }
                 }
             }
