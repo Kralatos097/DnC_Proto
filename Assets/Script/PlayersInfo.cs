@@ -1,55 +1,33 @@
-public class WarriorInfo
+public abstract class PlayersInfo
 {
     public static int MaxHp = 0;
-    public static int CurrentPv = 0;
+    public static int CurrentHp = 0;
 
     public static int Init = 0;
     public static int Movement = 0;
 
-    public static Equipment Equipment1 = null;
-    public static Equipment Equipment2 = null;
+    public static Equipment EquipmentOne = null;
+    public static Equipment EquipmentTwo = null;
     public static Passif Passif = null;
     public static Consummable Consumable = null;
 }
 
-public class ThiefInfo
+public class WarriorInfo : PlayersInfo
 {
-    public static int MaxHp = 0;
-    public static int CurrentPv = 0;
-
-    public static int Init = 0;
-    public static int Movement = 0;
-
-    public static Equipment Equipment1 = null;
-    public static Equipment Equipment2 = null;
-    public static Passif Passif = null;
-    public static Consummable Consumable = null;
+    
 }
 
-public class ClericInfo
+public class ThiefInfo : PlayersInfo
 {
-    public static int MaxHp = 0;
-    public static int CurrentPv = 0;
-
-    public static int Init = 0;
-    public static int Movement = 0;
-
-    public static Equipment Equipment1 = null;
-    public static Equipment Equipment2 = null;
-    public static Passif Passif = null;
-    public static Consummable Consumable = null;
+    
 }
 
-public class WizardInfo
+public class ClericInfo : PlayersInfo
 {
-    public static int MaxHp = 0;
-    public static int CurrentPv = 0;
+    
+}
 
-    public static int Init = 0;
-    public static int Movement = 0;
-
-    public static Equipment Equipment1 = null;
-    public static Equipment Equipment2 = null;
-    public static Passif Passif = null;
-    public static Consummable Consumable = null;
+public class WizardInfo : PlayersInfo
+{
+    
 }

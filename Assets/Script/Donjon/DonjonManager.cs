@@ -30,6 +30,14 @@ public class DonjonManager : MonoBehaviour
 
     public static DonjonTile CurrentTile;
 
+    [Header("CharaCard")]
+    public PlayerBaseInfo warriorInfo;
+    public PlayerBaseInfo thiefInfo;
+    public PlayerBaseInfo clericInfo;
+    public PlayerBaseInfo wizardInfo;
+
+    private static bool _playerInfoPass = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +45,50 @@ public class DonjonManager : MonoBehaviour
         _equipmentList = equipmentList;
         _consoList = consoList;
         _bossScene = bossScene;
+
+        if(!_playerInfoPass)
+        {
+            AssignPlayerInfo();
+        }
+    }
+
+    private void AssignPlayerInfo()
+    {
+        WarriorInfo.MaxHp = warriorInfo.MaxHp;
+        WarriorInfo.CurrentHp = warriorInfo.MaxHp;
+        WarriorInfo.Init = warriorInfo.Initiative;
+        WarriorInfo.Movement = warriorInfo.Movement;
+        WarriorInfo.EquipmentOne = warriorInfo.equipmentOne;
+        WarriorInfo.EquipmentTwo = warriorInfo.equipmentTwo;
+        WarriorInfo.Passif = warriorInfo.passif;
+        WarriorInfo.Consumable = warriorInfo.consumable;
+        
+        ThiefInfo.MaxHp = thiefInfo.MaxHp;
+        ThiefInfo.CurrentHp = thiefInfo.MaxHp;
+        ThiefInfo.Init = thiefInfo.Initiative;
+        ThiefInfo.Movement = thiefInfo.Movement;
+        ThiefInfo.EquipmentOne = thiefInfo.equipmentOne;
+        ThiefInfo.EquipmentTwo = thiefInfo.equipmentTwo;
+        ThiefInfo.Passif = thiefInfo.passif;
+        ThiefInfo.Consumable = thiefInfo.consumable;
+        
+        ClericInfo.MaxHp = clericInfo.MaxHp;
+        ClericInfo.CurrentHp = clericInfo.MaxHp;
+        ClericInfo.Init = clericInfo.Initiative;
+        ClericInfo.Movement = clericInfo.Movement;
+        ClericInfo.EquipmentOne = clericInfo.equipmentOne;
+        ClericInfo.EquipmentTwo = clericInfo.equipmentTwo;
+        ClericInfo.Passif = clericInfo.passif;
+        ClericInfo.Consumable = clericInfo.consumable;
+        
+        WizardInfo.MaxHp = wizardInfo.MaxHp;
+        WizardInfo.CurrentHp = wizardInfo.MaxHp;
+        WizardInfo.Init = wizardInfo.Initiative;
+        WizardInfo.Movement = wizardInfo.Movement;
+        WizardInfo.EquipmentOne = wizardInfo.equipmentOne;
+        WizardInfo.EquipmentTwo = wizardInfo.equipmentTwo;
+        WizardInfo.Passif = wizardInfo.passif;
+        WizardInfo.Consumable = wizardInfo.consumable;
     }
 
     public static void LaunchRoomEffect(RoomEffect roomEffect)

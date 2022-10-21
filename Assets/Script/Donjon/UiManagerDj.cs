@@ -136,8 +136,8 @@ public class UiManagerDj : MonoBehaviour
             case 0: //Warrior
                 //todo: recup l'equipement du perso et le mettre dans l'UI de selection d'equipement puis l'afficher
                 StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = newStuff.Logo;
-                EquipChoiceIconChange(WarriorInfo.Equipment1, StuffIconPanel.transform.GetChild(1).gameObject);
-                EquipChoiceIconChange(WarriorInfo.Equipment2, StuffIconPanel.transform.GetChild(2).gameObject);
+                EquipChoiceIconChange(WarriorInfo.EquipmentOne, StuffIconPanel.transform.GetChild(1).gameObject);
+                EquipChoiceIconChange(WarriorInfo.EquipmentTwo, StuffIconPanel.transform.GetChild(2).gameObject);
                 EquipChoiceIconChange(WarriorInfo.Passif, StuffIconPanel.transform.GetChild(3).gameObject);
                 EquipChoiceIconChange(WarriorInfo.Consumable, StuffIconPanel.transform.GetChild(4).gameObject);
                 break;
