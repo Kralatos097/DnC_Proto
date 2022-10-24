@@ -4,11 +4,12 @@ public abstract class Stuff : ScriptableObject
 {
     private string Name;
     public Sprite Logo;
-    public EquipType equipType;
+    //public EquipType equipType;
+    [HideInInspector] public string stuffType;
 
     public abstract void Effect();
 
-    public void Start()
+    protected void Start()
     {
         string Name = name;
     }

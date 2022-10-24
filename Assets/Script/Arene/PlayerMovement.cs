@@ -66,8 +66,6 @@ public class PlayerMovement : TacticsMovement
                 break;
             case Action.Stay:
                 TurnManagerV2.EndTurn();
-                _lastPos = transform.position;
-                _lastRot = transform.rotation;
                 pass = false;
                 _uiManager.Reset();
                 break;
@@ -165,7 +163,6 @@ public class PlayerMovement : TacticsMovement
                         int equip = 0;
                         switch(_uiManager.stuffSelected)
                         {
-                            
                             case StuffSelected.EquipOne:
                                 equip = 1;
                                 break;
@@ -191,6 +188,8 @@ public class PlayerMovement : TacticsMovement
     
     protected override void EndOfMovement()
     {
+        _lastPos = transform.position;
+        _lastRot = transform.rotation;
         base.EndOfMovement();
         _uiManager.actionSelected = Action.Default;
         _uiManager.ShowActionSelector();
@@ -198,6 +197,9 @@ public class PlayerMovement : TacticsMovement
     
     protected override void EndOfAttack()
     {
+        base.EndOfAttack();
+        _lastPos = transform.position;
+        _lastRot = transform.rotation;
         _uiManager.Reset();
         TurnManagerV2.EndTurn();
     }

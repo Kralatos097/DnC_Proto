@@ -45,8 +45,9 @@ public enum StuffSelected
 
 public enum Perso
 {
+    Default,
     Warrior,
-    Cleric,
     Thief,
+    Cleric,
     Wizard,
 }

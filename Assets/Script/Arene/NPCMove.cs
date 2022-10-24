@@ -100,6 +100,7 @@ public class NPCMove : TacticsMovement
     
     protected override void EndOfAttack()
     {
+        base.EndOfAttack();
         EndTurnT();
     }
 

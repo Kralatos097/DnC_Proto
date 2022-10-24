@@ -20,7 +20,7 @@ public class DojonMovement : MonoBehaviour
 
     private void Update()
     {
-        if(_canMove && !UiManagerDj.ArtworkShown)
+        if(_canMove && !UiManagerDj.ArtworkShown && !UiManagerDj.InChoice)
             CheckMove();
         if (Vector3.Distance(transform.position, target) >= .02f)
         {
@@ -32,26 +32,7 @@ public class DojonMovement : MonoBehaviour
             if(DonjonManager.CurrentTile.emptied) return;
             
             //Todo: Lancer l'effet de la piece
-            //GetCurrentTile();
             UiManagerDj.EnterRoomArtwork(DonjonManager.CurrentTile.roomType);
-            /*switch (DonjonManager.CurrentTile.roomType)
-            {
-                case RoomType.Normal:
-                    //todo: fouille
-                    break;
-                case RoomType.Boss:
-                    //todo: lance combat
-                    break;
-                case RoomType.Treasure:
-                    //todo: fouille - rates speciaux
-                    break;
-                case RoomType.Fighting:
-                    //todo: lance combat
-                    break;
-                case RoomType.Starting:
-                default:
-                    break;
-            }*/
             _canMove = true;
         }
         if(transform.position != target)

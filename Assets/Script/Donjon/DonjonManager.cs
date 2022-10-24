@@ -7,6 +7,7 @@ using UnityEngine.Android;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.WSA;
+using Application = UnityEngine.Application;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
@@ -17,6 +18,8 @@ public class DonjonManager : MonoBehaviour
 
     public string bossScene;
     private static string _bossScene;
+
+    public static GameObject _gameContainer;
 
     [Header("Listes")]
     public List<string> fightingSceneList;
@@ -45,6 +48,7 @@ public class DonjonManager : MonoBehaviour
         _equipmentList = equipmentList;
         _consoList = consoList;
         _bossScene = bossScene;
+        _gameContainer = GameObject.Find("GameContainer");
 
         if(!_playerInfoPass)
         {
@@ -101,12 +105,14 @@ public class DonjonManager : MonoBehaviour
                 break;
             case RoomEffect.Treasure:
                 //todo
+                LaunchTreasure();
                 break;
             case RoomEffect.Fight:
                 LaunchFight();
                 break;
             case RoomEffect.Rest:
                 //todo
+                LaunchRest();
                 break;
             case RoomEffect.Loot:
                 LaunchLoot();
@@ -124,8 +130,13 @@ public class DonjonManager : MonoBehaviour
         
         Debug.Log(scene);
         _fightingSceneList.Remove(scene);
-        Debug.Log(_fightingSceneList.Count); 
-        SceneManager.LoadSceneAsync(scene);
+        Debug.Log(_fightingSceneList.Count);
+        _gameContainer.SetActive(false);
+        AsyncOperation op = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+        op.completed += operation =>
+        {
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(scene));
+        };
     }
 
     private static string SelectFightScene()
@@ -144,32 +155,39 @@ public class DonjonManager : MonoBehaviour
     //todo: loot
     private static void LaunchLoot()
     {
-        Stuff stuff = PickStuff();
-        UiManagerDj.StuffChoiceOne(stuff);
+        /*Stuff stuff = PickStuff();
+        UiManagerDj.StuffChoiceOne(stuff);*/
 
-        /*int rand = Random.Range(0, 20);
+        int rand = Random.Range(0, 20);
+        Debug.Log(rand);
         if(rand == 0)
         {
             //todo: Ambushed
+            UiManagerDj.InChoice = false;
+            LaunchFight();
         }
         else if (rand is > 0 and <= 3)
         {
             //todo: Trap
+            LaunchTrap();
+            UiManagerDj.InChoice = false;
         }
         else if(rand is > 3 and <= 7)
         {
             Stuff stuff = PickStuff();
-            UiManagerDj.StuffChoice(stuff);
+            UiManagerDj.StuffChoiceOne(stuff);
         }
         else if (rand is > 7 and <= 13)
         {
-            //todo: Consumable
+            //todo: consumable -> check needed
             Consummable stuff = PickConsumable();
+            UiManagerDj.StuffChoiceOne(stuff);
         }
         else
         {
             //todo: nothing
-        }*/
+            UiManagerDj.InChoice = false;
+        }
     }
 
     private static Stuff PickStuff()
@@ -185,6 +203,18 @@ public class DonjonManager : MonoBehaviour
     }
     
     //todo: rest
+    private static void LaunchRest()
+    {
+        WarriorInfo.CurrentHp += Random.Range(1, 7);
+        ThiefInfo.CurrentHp += Random.Range(1, 7);
+        ClericInfo.CurrentHp += Random.Range(1, 7);
+        WizardInfo.CurrentHp += Random.Range(1, 7);
+        
+        Debug.Log(WarriorInfo.CurrentHp);
+        Debug.Log(ThiefInfo.CurrentHp);
+        Debug.Log(ClericInfo.CurrentHp);
+        Debug.Log(WizardInfo.CurrentHp);
+    }
     
     //todo: treasure
     private static void LaunchTreasure()
@@ -193,12 +223,57 @@ public class DonjonManager : MonoBehaviour
         if(rand == 0)
         {
             //todo: Consumable
-            Consummable consumable = PickConsumable();
+            Stuff stuff = PickConsumable();
+            UiManagerDj.StuffChoiceOne(stuff);
         }
         else
         {
             Stuff stuff = PickStuff();
             UiManagerDj.StuffChoiceOne(stuff);
         }
+    }
+    
+    private static void LaunchTrap()
+    {
+        int comp = WarriorInfo.CurrentHp;
+        int minus = Random.Range(1, 4);
+        if (comp - minus > 0)
+        {
+            WarriorInfo.CurrentHp -= minus;
+        }
+        else
+            WarriorInfo.CurrentHp = 1;
+        
+        comp = ThiefInfo.CurrentHp;
+        minus = Random.Range(1, 4);
+        if (comp - minus > 0)
+        {
+            ThiefInfo.CurrentHp -= minus;
+        }
+        else
+            ThiefInfo.CurrentHp = 1;
+        
+        comp = ClericInfo.CurrentHp;
+        minus = Random.Range(1, 4);
+        if (comp - minus > 0)
+        {
+            ClericInfo.CurrentHp -= minus;
+        }
+        else
+            ClericInfo.CurrentHp = 1;
+        
+        comp = WizardInfo.CurrentHp;
+        minus = Random.Range(1, 4);
+        if (comp - minus > 0)
+        {
+            WizardInfo.CurrentHp -= minus;
+        }
+        else
+            WizardInfo.CurrentHp = 1;
+        
+        Debug.Log(WarriorInfo.CurrentHp);
+        Debug.Log(ThiefInfo.CurrentHp);
+        Debug.Log(ClericInfo.CurrentHp);
+        Debug.Log(WizardInfo.CurrentHp);
     }
 }

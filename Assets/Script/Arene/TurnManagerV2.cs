@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class TurnManagerV2 : MonoBehaviour
@@ -12,11 +13,15 @@ public class TurnManagerV2 : MonoBehaviour
     private static Queue<TacticsMovement> turnOrder = new Queue<TacticsMovement>();
     private static List<TacticsMovement> unitsList = new List<TacticsMovement>();
 
-    public bool startCombat = false;
+    [HideInInspector] public bool startCombat = false;
+    public bool bossFight = false;
+    private static bool _combatEnded = false;
+    private static bool _isDefeat = false;
 
     private void Start()
     {
         Invoke(nameof(LateStart), 1);
+        _combatEnded = false;
         _combatEndCanvas = CombatEndCanvas;
     }
     
@@ -31,8 +36,46 @@ public class TurnManagerV2 : MonoBehaviour
         StartTurn();
     }
 
+    private void Update()
+    {
+        if(Input.GetMouseButtonDown(0) && _combatEnded)
+        {
+            
+            if(!bossFight)
+            {
+                if(_isDefeat)
+                {
+                    //todo: loose screen
+                    SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("ProtoDJ"));
+                    SceneManager.LoadScene("DefeatScene");
+                }
+                else
+                {
+                    SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+                    DonjonManager._gameContainer.SetActive(true);
+                    SceneManager.SetActiveScene(SceneManager.GetSceneByName("ProtoDJ"));
+                }
+                
+            }
+            else
+            {
+                if(_isDefeat)
+                {
+                    //todo: loose screen
+                    SceneManager.LoadScene("DefeatScene");
+                }
+                else
+                {
+                    //todo: Session end
+                    SceneManager.LoadScene("VictoryScene");
+                }
+            }
+        }
+    }
+
     private static void EndCombat(bool pStatue)
     {
+        _combatEnded = true;
         //Victoire player
         if(pStatue)
         {
@@ -46,6 +89,7 @@ public class TurnManagerV2 : MonoBehaviour
         {
             //todo
             Debug.Log("Defeat");
+            _isDefeat = true;
             _combatEndCanvas.GetChild(1).gameObject.SetActive(true);
             //Todo: changement de scene apres un clic
         }

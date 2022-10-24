@@ -7,8 +7,6 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/PlayerCard", order = 2)]
 public class PlayerBaseInfo : ScriptableObject
 {
-    private static bool _firstPass = false;
-
     public int MaxHp;
     public int Initiative;
     public int Movement;

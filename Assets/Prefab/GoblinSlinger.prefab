@@ -148,7 +148,7 @@ MonoBehaviour:
   move: 2
   moveSpeed: 2
   actualTargetTile: {fileID: 0}
-  equipmentOne: {fileID: 11400000, guid: 0ad0edab5da9b224b9f493bdbe8b67a9, type: 2}
+  equipmentOne: {fileID: 11400000, guid: 4982c61a71b3820459bbfa506bf8d485, type: 2}
   equipmentTwo: {fileID: 0}
   consummable: {fileID: 0}
   passif: {fileID: 0}

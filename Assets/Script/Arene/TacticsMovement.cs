@@ -441,7 +441,7 @@ public class TacticsMovement : MonoBehaviour
 
     protected virtual void EndOfAttack()
     {
-        
+        RemoveSelectableTile();
     }
 
     public void EquipCDMinus(int value)
