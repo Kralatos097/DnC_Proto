@@ -65,6 +65,8 @@ public class PlayerMovement : TacticsMovement
                 }
                 break;
             case Action.Stay:
+                _lastPos = transform.position;
+                _lastRot = transform.rotation;
                 TurnManagerV2.EndTurn();
                 pass = false;
                 _uiManager.Reset();
@@ -188,8 +190,6 @@ public class PlayerMovement : TacticsMovement
     
     protected override void EndOfMovement()
     {
-        _lastPos = transform.position;
-        _lastRot = transform.rotation;
         base.EndOfMovement();
         _uiManager.actionSelected = Action.Default;
         _uiManager.ShowActionSelector();
