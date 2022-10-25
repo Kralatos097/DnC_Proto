@@ -15,7 +15,7 @@ MonoBehaviour:
   MaxHp: 10
   Initiative: 1
   Movement: 2
-  equipmentOne: {fileID: 11400000, guid: 4982c61a71b3820459bbfa506bf8d485, type: 2}
-  equipmentTwo: {fileID: 11400000, guid: ad874cef177635d44a0c442d0ed172d6, type: 2}
+  equipmentOne: {fileID: 11400000, guid: b9a4380d90914da4ca6bb5226dabb562, type: 2}
+  equipmentTwo: {fileID: 11400000, guid: b7fc38c5aa579c14ea74eed18a60bf2c, type: 2}
   passif: {fileID: 0}
   consumable: {fileID: 0}

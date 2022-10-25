@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64b7073100556f54a9ea8edc87d0de51, type: 3}
-  m_Name: Thief
+  m_Script: {fileID: 11500000, guid: c9121371b15b6b04d9ab53464911a00c, type: 3}
+  m_Name: Sacred Mace
   m_EditorClassIdentifier: 
-  MaxHp: 9
-  Initiative: 4
-  Movement: 3
-  equipmentOne: {fileID: 11400000, guid: c16a0fffe3333c84493f35f3a3e0f82c, type: 2}
-  equipmentTwo: {fileID: 0}
-  passif: {fileID: 0}
-  consumable: {fileID: 0}
+  Logo: {fileID: 21300000, guid: caea9be640e6ccf428b3f56046f0becc, type: 3}
+  stuffType: 
+  Damage: 2
+  CD: 0
+  Range: 1
