@@ -455,7 +455,6 @@ public class TacticsMovement : MonoBehaviour
 
     public void EquipCDMinus(int value)
     {
-        Debug.Log(EquiOneCD);
         if (equipmentOne != null) EquiOneCD-=value;
         if (equipmentTwo != null) EquiTwoCD-=value;
 

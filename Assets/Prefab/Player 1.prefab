@@ -61,13 +61,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 219fdcac41923314d80b0c42e1e02600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  move: 3
   moveSpeed: 2
   actualTargetTile: {fileID: 0}
-  equipmentOne: {fileID: 11400000, guid: 4982c61a71b3820459bbfa506bf8d485, type: 2}
-  equipmentTwo: {fileID: 11400000, guid: ad874cef177635d44a0c442d0ed172d6, type: 2}
-  consummable: {fileID: 0}
-  passif: {fileID: 0}
+  charaClass: 1
+  UnitInfo: {fileID: 11400000, guid: ccb22e06a8753654eb5c17e944da9f66, type: 2}
 --- !u!114 &808382522364158554
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5494552272489983834}
   - component: {fileID: 5494552272489983833}
   m_Layer: 6
-  m_Name: GoblinSlinger
+  m_Name: GoblinEpee
   m_TagString: Ennemi
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   actualTargetTile: {fileID: 0}
-  UnitInfo: {fileID: 11400000, guid: 1ccd5d421408be14991f5da6dcdf4b36, type: 2}
+  UnitInfo: {fileID: 11400000, guid: 2a11a107d81692c44955d9c317253289, type: 2}
 --- !u!114 &5494552272489983833
 MonoBehaviour:
   m_ObjectHideFlags: 0

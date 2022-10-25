@@ -26,7 +26,11 @@ public class Tile : MonoBehaviour
 
     private void Update()
     {
-        if(!TacticsMovement.PlayersTurn) return;
+        if(!TacticsMovement.PlayersTurn)
+        {
+            overlay.color = new Color(1, 1, 1, 0);
+            return;
+        }
 
         if(current)
         {

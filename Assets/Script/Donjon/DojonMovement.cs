@@ -29,10 +29,8 @@ public class DojonMovement : MonoBehaviour
         }
         else
         {
-            if(DonjonManager.CurrentTile.emptied) return;
-            
-            //Todo: Lancer l'effet de la piece
-            UiManagerDj.EnterRoomArtwork(DonjonManager.CurrentTile.roomType);
+            if(!DonjonManager.CurrentTile.emptied) 
+                UiManagerDj.EnterRoomArtwork(DonjonManager.CurrentTile.roomType);
             _canMove = true;
         }
         if(transform.position != target)
