@@ -2810,7 +2810,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   restValue: 6
-  bossScene: TestDeplacement
+  bossScene: Boss_S0_00
   fightingSceneList:
   - Fight_S1_01
   - Fight_S1_02

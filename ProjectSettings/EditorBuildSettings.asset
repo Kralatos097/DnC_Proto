@@ -50,4 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_SceneValou/Fight_S1_04.unity
     guid: c5fb18f6f03f72a408be58e08c20ceed
+  - enabled: 1
+    path: Assets/_SceneValou/Boss_S0_00.unity
+    guid: 81c9300bea3071849beb55ba0dd277c4
   m_configObjects: {}
