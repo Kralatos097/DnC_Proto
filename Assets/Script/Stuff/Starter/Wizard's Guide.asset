@@ -15,5 +15,5 @@ MonoBehaviour:
   Logo: {fileID: 21300000, guid: 9a4abb1e5225bbd409299c2f703054ab, type: 3}
   stuffType: 
   Damage: 4
-  CD: 2
+  CD: 1
   Range: 3
