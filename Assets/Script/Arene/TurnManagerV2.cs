@@ -18,6 +18,12 @@ public class TurnManagerV2 : MonoBehaviour
     private static bool _combatEnded = false;
     private static bool _isDefeat = false;
 
+    private void Awake()
+    {
+        unitsList.Clear();
+        turnOrder.Clear();
+    }
+
     private void Start()
     {
         Invoke(nameof(LateStart), 1);

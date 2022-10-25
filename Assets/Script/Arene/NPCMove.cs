@@ -112,7 +112,6 @@ public class NPCMove : TacticsMovement
     {
         _alreadyMoved = true;
         base.EndOfMovement();
-        //TurnManagerV2.EndTurn();
     }
     
     protected override void EndOfAttack()

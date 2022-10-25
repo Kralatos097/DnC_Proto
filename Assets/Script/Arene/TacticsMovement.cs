@@ -443,7 +443,6 @@ public class TacticsMovement : MonoBehaviour
                 break;
         }
 
-        /*combatStat.currHp--;*/
         Debug.Log("ATTACKING " + combatStat.gameObject.name + "!\n Now has : " + combatStat.currHp + " HP!");
         EndOfAttack();
     }
