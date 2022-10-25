@@ -9,7 +9,7 @@ public class Equipment : Stuff
     public int Damage;
     public int CD;
     public int Range;
-
+    
     public override void Effect()
     {
         

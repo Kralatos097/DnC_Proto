@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initiative: 3
-  MaxHp: 4
+  MaxHp: 12
   currInit: 0
   isAlive: 1
 --- !u!1 &6684711867349180804

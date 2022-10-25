@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   MaxHp: 12
-  Initiative: 2
+  Initiative: 3
   Movement: 3
-  equipmentOne: {fileID: 0}
-  equipmentTwo: {fileID: 11400000, guid: ad874cef177635d44a0c442d0ed172d6, type: 2}
+  equipmentOne: {fileID: 11400000, guid: 31ff4bac743c8d34a8dd7d2efb8f3dea, type: 2}
+  equipmentTwo: {fileID: 0}
   passif: {fileID: 0}
   consumable: {fileID: 0}

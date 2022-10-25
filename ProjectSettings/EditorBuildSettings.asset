@@ -35,4 +35,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_SceneTibo/MainMenu.unity
     guid: 3d8121ecc7e40b640a55c553d39e826d
+  - enabled: 1
+    path: Assets/_SceneValou/Dungeons_S1.unity
+    guid: 419cbb0632f84da40b47bdeeabeaa628
+  - enabled: 1
+    path: Assets/_SceneValou/Fight_S1_01.unity
+    guid: 533a5148ae38fea46a6adff55aa7103e
+  - enabled: 1
+    path: Assets/_SceneValou/Fight_S1_02.unity
+    guid: 5be3a11d6c35ce441aedd64a0f635739
+  - enabled: 1
+    path: Assets/_SceneValou/Fight_S1_03.unity
+    guid: e4cfa7d4505b3764f9bdb439f36cf242
+  - enabled: 1
+    path: Assets/_SceneValou/Fight_S1_04.unity
+    guid: c5fb18f6f03f72a408be58e08c20ceed
   m_configObjects: {}
