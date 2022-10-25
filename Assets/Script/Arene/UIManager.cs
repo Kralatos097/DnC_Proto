@@ -112,7 +112,7 @@ public class UIManager : MonoBehaviour
             EquipSelectorPanel.transform.GetChild(0).gameObject.GetComponent<Button>().interactable = false;
             EquipSelectorPanel.transform.GetChild(0).GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = ""+equipOneCd;
             EquipSelectorPanel.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().color = Color.white;
-            EquipSelectorPanel.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = equipmentTwo.Logo;
+            EquipSelectorPanel.transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = equipmentOne.Logo;
         }
         else
         {
@@ -145,7 +145,8 @@ public class UIManager : MonoBehaviour
         {
             EquipSelectorPanel.transform.GetChild(2).gameObject.GetComponent<Button>().interactable = false;
             EquipSelectorPanel.transform.GetChild(2).GetChild(0).gameObject.GetComponent<Image>().color = new Color(0, 0, 0, 0);
-        }else
+        }
+        else
         {
             EquipSelectorPanel.transform.GetChild(2).gameObject.GetComponent<Button>().interactable = true;
             EquipSelectorPanel.transform.GetChild(2).GetChild(0).gameObject.GetComponent<Image>().color = Color.white;

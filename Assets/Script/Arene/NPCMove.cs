@@ -7,10 +7,27 @@ public class NPCMove : TacticsMovement
     private GameObject target;
     private bool _alreadyMoved = false;
     
+    [SerializeField] protected PlayerBaseInfo UnitInfo;
+    
     // Start is called before the first frame update
     void Start()
     {
         Init();
+    }
+
+    protected override void GetUnitInfo()
+    {
+        CombatStat _combatStat = gameObject.GetComponent<CombatStat>();
+        
+        _combatStat.MaxHp = UnitInfo.MaxHp;
+        _combatStat.currHp = UnitInfo.MaxHp;
+        _combatStat.initiative = UnitInfo.Initiative;
+
+        move = UnitInfo.Movement;
+        equipmentOne = UnitInfo.equipmentOne;
+        equipmentTwo = UnitInfo.equipmentTwo;
+        passif = UnitInfo.passif;
+        consummable = UnitInfo.consumable;
     }
 
     // Update is called once per frame

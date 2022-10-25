@@ -10,6 +10,10 @@ public class PlayerMovement : TacticsMovement
     private Vector3 _lastPos;
     private Quaternion _lastRot;
 
+    public Perso charaClass;
+    
+    [SerializeField] protected PlayerBaseInfo UnitInfo;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +23,110 @@ public class PlayerMovement : TacticsMovement
         _lastRot = transform.rotation;
     }
 
+    protected override void GetUnitInfo()
+    {
+        CombatStat _combatStat = gameObject.GetComponent<CombatStat>();
+        switch(charaClass)
+        {
+            case Perso.Warrior:
+                _combatStat.MaxHp = WarriorInfo.MaxHp;
+                _combatStat.currHp = WarriorInfo.MaxHp;
+                _combatStat.initiative = WarriorInfo.Init;
+
+                move = WarriorInfo.Movement;
+                equipmentOne = WarriorInfo.EquipmentOne;
+                equipmentTwo = WarriorInfo.EquipmentTwo;
+                passif = WarriorInfo.Passif;
+                consummable = WarriorInfo.Consumable;
+                break;
+            case Perso.Thief:
+                _combatStat.MaxHp = ThiefInfo.MaxHp;
+                _combatStat.currHp = ThiefInfo.MaxHp;
+                _combatStat.initiative = ThiefInfo.Init;
+
+                move = ThiefInfo.Movement;
+                equipmentOne = ThiefInfo.EquipmentOne;
+                equipmentTwo = ThiefInfo.EquipmentTwo;
+                passif = ThiefInfo.Passif;
+                consummable = ThiefInfo.Consumable;
+                break;
+            case Perso.Cleric:
+                _combatStat.MaxHp = ClericInfo.MaxHp;
+                _combatStat.currHp = ClericInfo.MaxHp;
+                _combatStat.initiative = ClericInfo.Init;
+
+                move = ClericInfo.Movement;
+                equipmentOne = ClericInfo.EquipmentOne;
+                equipmentTwo = ClericInfo.EquipmentTwo;
+                passif = ClericInfo.Passif;
+                consummable = ClericInfo.Consumable;
+                break;
+            case Perso.Wizard:
+                _combatStat.MaxHp = WizardInfo.MaxHp;
+                _combatStat.currHp = WizardInfo.MaxHp;
+                _combatStat.initiative = WizardInfo.Init;
+
+                move = WizardInfo.Movement;
+                equipmentOne = WizardInfo.EquipmentOne;
+                equipmentTwo = WizardInfo.EquipmentTwo;
+                passif = WizardInfo.Passif;
+                consummable = WizardInfo.Consumable;
+                break;
+            case Perso.Default:
+                _combatStat.MaxHp = UnitInfo.MaxHp;
+                _combatStat.currHp = UnitInfo.MaxHp;
+                _combatStat.initiative = UnitInfo.Initiative;
+
+                move = UnitInfo.Movement;
+                equipmentOne = UnitInfo.equipmentOne;
+                equipmentTwo = UnitInfo.equipmentTwo;
+                passif = UnitInfo.passif;
+                consummable = UnitInfo.consumable;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    public void SetUnitInfo()
+    {
+        switch(charaClass)
+        {
+            case Perso.Warrior:
+                WarriorInfo.MaxHp = _combatStat.MaxHp;
+                WarriorInfo.CurrentHp = _combatStat.currHp;
+                WarriorInfo.Init = _combatStat.initiative;
+                
+                WarriorInfo.Consumable = consummable;
+                break;
+            case Perso.Thief:
+                ThiefInfo.MaxHp = _combatStat.MaxHp;
+                ThiefInfo.CurrentHp = _combatStat.currHp;
+                ThiefInfo.Init = _combatStat.initiative;
+                
+                ThiefInfo.Consumable = consummable;
+                break;
+            case Perso.Cleric:
+                ClericInfo.MaxHp = _combatStat.MaxHp;
+                ClericInfo.CurrentHp = _combatStat.currHp;
+                ClericInfo.Init = _combatStat.initiative;
+                
+                ClericInfo.Consumable = consummable;
+                break;
+            case Perso.Wizard:
+                WizardInfo.MaxHp = _combatStat.MaxHp;
+                WizardInfo.CurrentHp = _combatStat.currHp;
+                WizardInfo.Init = _combatStat.initiative;
+                
+                WizardInfo.Consumable = consummable;
+                break;
+            case Perso.Default:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+    
     // Update is called once per frame
     void Update()
     {

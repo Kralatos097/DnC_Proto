@@ -82,6 +82,7 @@ public class TurnManagerV2 : MonoBehaviour
             //todo
             Debug.Log("Victiore");
             _combatEndCanvas.GetChild(0).gameObject.SetActive(true);
+            SetPlayersInfo();
             //Todo: changement de scene apres un clic
         }
         //Défaite player
@@ -92,6 +93,18 @@ public class TurnManagerV2 : MonoBehaviour
             _isDefeat = true;
             _combatEndCanvas.GetChild(1).gameObject.SetActive(true);
             //Todo: changement de scene apres un clic
+        }
+    }
+    
+    private static void SetPlayersInfo()
+    {
+        foreach (TacticsMovement tacticsMovement in unitsList)
+        {
+            PlayerMovement playerMovement = tacticsMovement.gameObject.GetComponent<PlayerMovement>();
+            if(playerMovement != null)
+            {
+                playerMovement.SetUnitInfo();
+            }
         }
     }
     

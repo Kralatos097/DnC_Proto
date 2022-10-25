@@ -7,9 +7,9 @@ using Random = UnityEngine.Random;
 
 public class CombatStat : MonoBehaviour
 {
-    public int initiative;
+    [HideInInspector] public int initiative;
 
-    public int MaxHp;
+    [HideInInspector] public int MaxHp;
     private int _currHp;
 
     public int currHp
@@ -24,6 +24,10 @@ public class CombatStat : MonoBehaviour
                 isAlive = false;
                 UnitDeath();
             }
+            else if(_currHp > MaxHp)
+            {
+                _currHp = MaxHp;
+            }
             /*if(_currHp > 0)
             {
                 isAlive = true;
@@ -35,11 +39,6 @@ public class CombatStat : MonoBehaviour
 
     [HideInInspector] public bool isAlive = true;
 
-    private void Start()
-    {
-        currHp = MaxHp;
-    }
-
     public void RollInit()
     {
         currInit = initiative + Random.Range(1,7);
@@ -50,6 +49,8 @@ public class CombatStat : MonoBehaviour
     private void UnitDeath()
     {
         transform.GetChild(0).gameObject.SetActive(false);
+        //todo: a virer pour les player
+        transform.position = new Vector3(-100, -100, -100);
     }
 
     [ContextMenu("KillUnit")]

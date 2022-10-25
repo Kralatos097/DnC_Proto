@@ -256,7 +256,7 @@ public class UiManagerDj : MonoBehaviour
         GameObject buttonClicked = EventSystem.current.currentSelectedGameObject;
         
         buttonClicked.GetComponent<Button>().image.sprite = _newStuff.Logo;
-        StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = stuff.Logo;
+        StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = stuff != null ? stuff.Logo : EmptyIcon;
 
         _newStuff = stuff;
     }
@@ -291,7 +291,7 @@ public class UiManagerDj : MonoBehaviour
         GameObject buttonClicked = EventSystem.current.currentSelectedGameObject;
         
         buttonClicked.GetComponent<Button>().image.sprite = _newStuff.Logo;
-        StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = stuff.Logo;
+        StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = stuff != null ? stuff.Logo : EmptyIcon;
 
         _newStuff = stuff;
     }
@@ -326,7 +326,7 @@ public class UiManagerDj : MonoBehaviour
         GameObject buttonClicked = EventSystem.current.currentSelectedGameObject;
         
         buttonClicked.GetComponent<Button>().image.sprite = _newStuff.Logo;
-        StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = stuff.Logo;
+        StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = stuff != null ? stuff.Logo : EmptyIcon;
 
         _newStuff = stuff;
     }
@@ -361,14 +361,7 @@ public class UiManagerDj : MonoBehaviour
         GameObject buttonClicked = EventSystem.current.currentSelectedGameObject;
         
         buttonClicked.GetComponent<Button>().image.sprite = _newStuff.Logo;
-        if(stuff == null)
-        {
-            StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = EmptyIcon;
-        }
-        else
-        {
-            StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = stuff.Logo;
-        }
+        StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = stuff != null ? stuff.Logo : EmptyIcon;
 
         _newStuff = stuff;
     }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64b7073100556f54a9ea8edc87d0de51, type: 3}
-  m_Name: Warrior
+  m_Name: Gobelin
   m_EditorClassIdentifier: 
-  MaxHp: 12
+  MaxHp: 2
   Initiative: 2
-  Movement: 3
-  equipmentOne: {fileID: 0}
+  Movement: 2
+  equipmentOne: {fileID: 11400000, guid: 4982c61a71b3820459bbfa506bf8d485, type: 2}
   equipmentTwo: {fileID: 11400000, guid: ad874cef177635d44a0c442d0ed172d6, type: 2}
   passif: {fileID: 0}
   consumable: {fileID: 0}

@@ -2384,6 +2384,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3672235354472917217, guid: 0ad12525474315a41980841eb55ba533, type: 3}
+      propertyPath: UnitInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 2a11a107d81692c44955d9c317253289, type: 2}
     - target: {fileID: 3672235354472917219, guid: 0ad12525474315a41980841eb55ba533, type: 3}
       propertyPath: m_Name
       value: BasicGoblin (1)
@@ -3101,6 +3105,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GoblinSlinger (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5494552272489983834, guid: dbb2650903386004f83cb0688ae6b41a, type: 3}
+      propertyPath: UnitInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ccd5d421408be14991f5da6dcdf4b36, type: 2}
     - target: {fileID: 5494552272489983836, guid: dbb2650903386004f83cb0688ae6b41a, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -4240,6 +4248,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 808382522364158555, guid: aaa10fd6d78b1444a93ddbaa8e794b99, type: 3}
+      propertyPath: UnitInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 5a3662ebb62e1fc4ca4c233b108bd6d0, type: 2}
+    - target: {fileID: 808382522364158555, guid: aaa10fd6d78b1444a93ddbaa8e794b99, type: 3}
+      propertyPath: charaClass
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 808382522364158556, guid: aaa10fd6d78b1444a93ddbaa8e794b99, type: 3}
       propertyPath: m_Name
       value: Player 1 (1)
@@ -4453,6 +4469,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 808382522364158555, guid: aaa10fd6d78b1444a93ddbaa8e794b99, type: 3}
+      propertyPath: ff
+      value: 
+      objectReference: {fileID: 11400000, guid: ccb22e06a8753654eb5c17e944da9f66, type: 2}
+    - target: {fileID: 808382522364158555, guid: aaa10fd6d78b1444a93ddbaa8e794b99, type: 3}
+      propertyPath: UnitInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: ccb22e06a8753654eb5c17e944da9f66, type: 2}
+    - target: {fileID: 808382522364158555, guid: aaa10fd6d78b1444a93ddbaa8e794b99, type: 3}
       propertyPath: consummable
       value: 
       objectReference: {fileID: 11400000, guid: 9311ca302ba368346a4ea6da3873032d, type: 2}
@@ -4477,6 +4501,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3672235354472917217, guid: 0ad12525474315a41980841eb55ba533, type: 3}
+      propertyPath: UnitInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 2a11a107d81692c44955d9c317253289, type: 2}
     - target: {fileID: 3672235354472917219, guid: 0ad12525474315a41980841eb55ba533, type: 3}
       propertyPath: m_Name
       value: BasicGoblin
@@ -4599,6 +4627,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GoblinSlinger
       objectReference: {fileID: 0}
+    - target: {fileID: 5494552272489983834, guid: dbb2650903386004f83cb0688ae6b41a, type: 3}
+      propertyPath: UnitInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ccd5d421408be14991f5da6dcdf4b36, type: 2}
     - target: {fileID: 5494552272489983836, guid: dbb2650903386004f83cb0688ae6b41a, type: 3}
       propertyPath: m_RootOrder
       value: 9

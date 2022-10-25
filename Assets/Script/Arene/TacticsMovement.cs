@@ -21,8 +21,8 @@ public class TacticsMovement : MonoBehaviour
 
     protected bool moving = false;
     protected bool attacking = false;
-    [SerializeField] protected int move = 3;
-    [SerializeField] protected float moveSpeed = 2;
+    protected int move = 3;
+    public float moveSpeed = 2;
     
     protected int atkRange = 0;
 
@@ -36,29 +36,38 @@ public class TacticsMovement : MonoBehaviour
 
     [HideInInspector] public Tile actualTargetTile;
 
-    public Equipment equipmentOne;
+    protected Equipment equipmentOne;
     protected int EquiOneCD = 0;
     
-    public Equipment equipmentTwo;
+    protected Equipment equipmentTwo;
     protected int EquiTwoCD = 0;
 
-    public Consummable consummable;
+    protected Consummable consummable;
     
-    public Passif passif;
+    protected Passif passif;
 
     private Material _unitMat;
     private Color _baseColor;
     private Color _changeColor;
 
+    protected CombatStat _combatStat;
+
     protected void Init()
     {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
+        
+        GetUnitInfo();
 
         halfHeight = GetComponent<Collider>().bounds.extents.y;
 
         gameObject.GetComponent<CombatStat>().RollInit();
         
         TurnManagerV2.AddUnit(this);
+    }
+
+    protected virtual void GetUnitInfo()
+    {
+        
     }
     
     protected void GetCurrentTile()
@@ -423,7 +432,7 @@ public class TacticsMovement : MonoBehaviour
             case 2:
                 equipmentTwo.Effect(combatStat);
                 combatStat.gameObject.GetComponent<TacticsMovement>().DamageClign();
-                EquiTwoCD = equipmentOne.CD;
+                EquiTwoCD = equipmentTwo.CD;
                 break;
             case 3:
                 consummable.Effect(combatStat);
@@ -446,11 +455,12 @@ public class TacticsMovement : MonoBehaviour
 
     public void EquipCDMinus(int value)
     {
+        Debug.Log(EquiOneCD);
         if (equipmentOne != null) EquiOneCD-=value;
-        if (equipmentTwo != null) EquiOneCD-=value;
+        if (equipmentTwo != null) EquiTwoCD-=value;
 
         if (EquiOneCD < 0) EquiOneCD = 0;
-        if (EquiOneCD < 0) EquiOneCD = 0;
+        if (EquiTwoCD < 0) EquiTwoCD = 0;
     }
 
     public void StartTurnClign()
