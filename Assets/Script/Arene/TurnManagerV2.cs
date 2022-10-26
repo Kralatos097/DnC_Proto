@@ -39,6 +39,7 @@ public class TurnManagerV2 : MonoBehaviour
     void StartCombat()
     {
         ListToQueue();
+        SetInitsUi();
         StartTurn();
     }
 
@@ -76,6 +77,14 @@ public class TurnManagerV2 : MonoBehaviour
                     SceneManager.LoadScene("VictoryScene");
                 }
             }
+        }
+    }
+
+    private void SetInitsUi()
+    {
+        foreach (TacticsMovement unit in turnOrder)
+        {
+            UIManager.setInitAction(unit.gameObject);
         }
     }
 

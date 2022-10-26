@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,6 +31,21 @@ public class UIManager : MonoBehaviour
 
     private Consummable consummable = null;
 
+    [Header("Init Aff")]
+    public Transform InitPanel;
+    public GameObject PlayerInitPanel;
+    public GameObject WarriorInitPanel;
+    public GameObject ThiefInitPanel;
+    public GameObject ClericInitPanel;
+    public GameObject WizardInitPanel;
+    public GameObject EnemyInitPanel;
+
+    public static Action<GameObject> setInitAction;
+
+    private void Awake()
+    {
+        setInitAction = AddUnitInitUi;
+    }
 
     void Update()
     {
@@ -221,5 +237,52 @@ public class UIManager : MonoBehaviour
     {
         equipOneCd = CdOne;
         equipTwoCd = CdTwo;
+    }
+
+    private void AddUnitInitUi(GameObject unit)
+    {
+        PlayerMovement playerMovement = unit.GetComponent<PlayerMovement>();
+        CombatStat combatStat = unit.GetComponent<CombatStat>();
+        GameObject t;
+        if (playerMovement != null)
+        {
+            switch (playerMovement.charaClass)
+            {
+                case Perso.Default:
+                    t = Instantiate(PlayerInitPanel, InitPanel);
+                    break;
+                case Perso.Warrior:
+                    t = Instantiate(WarriorInitPanel, InitPanel);
+                    break;
+                case Perso.Thief:
+                    t = Instantiate(ThiefInitPanel, InitPanel);
+                    break;
+                case Perso.Cleric:
+                    t = Instantiate(ClericInitPanel, InitPanel);
+                    break;
+                case Perso.Wizard:
+                    t = Instantiate(WizardInitPanel, InitPanel);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            t.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + combatStat.currHp;
+            t.transform.GetChild(1).Find("FillHpImg").GetComponent<Image>().fillAmount =
+                (combatStat.currHp / (float)combatStat.MaxHp);
+            if (playerMovement.GetPassif() == null)
+            {
+                t.transform.Find("PassifImg").gameObject.SetActive(false);
+            }
+            else
+                t.transform.Find("PassifImg").GetComponent<Image>().sprite = playerMovement.GetPassif().Logo;
+        }
+        else
+        {
+            //NPCMove npcMove = unit.GetComponent<NPCMove>();
+            t = Instantiate(EnemyInitPanel, InitPanel);
+        }
+        t.transform.Find("ArmorImg").gameObject.SetActive(false);
+        t.transform.Find("StatusImg").gameObject.SetActive(false);
     }
 }
