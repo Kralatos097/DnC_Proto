@@ -1,12 +1,19 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine.Audio;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class AudioManager : MonoBehaviour
 {
+    [Header("Liste de Musique")]
+    public Music[] music;
+    
     [Header("Liste de Son")]
-    public Sound[] sounds;
+    public SFX[] sfx;
+    
+    [Header("Liste de Voix")]
+    public Voice[] voice;
 
     public static AudioManager instance;
 
@@ -20,14 +27,25 @@ public class AudioManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         
-        foreach (Sound s in sounds)
+        foreach (Music s in music)
         {
             s.source = gameObject.AddComponent<AudioSource>();
             s.source.clip = s.clip;
-
+            s.source.volume = s.volume;
+            s.source.loop = s.loop;
+        }
+        foreach (SFX s in sfx)
+        {
+            s.source = gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
+        }
+        foreach (Voice s in voice)
+        {
+            s.source = gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
+            s.source.volume = s.volume;
         }
     }
 
@@ -37,38 +55,77 @@ public class AudioManager : MonoBehaviour
         //Play("Theme");
     }
     
-    //Joue un son depuis le début : FindObjectOfType<AudioManager>().Play("NomDuSon");
+    //Joue une musique depuis le début : FindObjectOfType<AudioManager>().Play("NomDuSon");
     public void Play(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Music s = Array.Find(music, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning("Le Son : " + name + " n'existe pas... Oublier de le mettre ou mal écrit");
+            Debug.LogWarning("La Musique : " + name + " n'existe pas... Oublier de le mettre ou mal écrit");
             return;
         }
             
         s.source.Play();
     }
     
-    //Arrête un son : FindObjectOfType<AudioManager>().Stop("NomDuSon");
+    //Arrête une musique : FindObjectOfType<AudioManager>().Stop("NomDuSon");
     public void Stop(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        Music s = Array.Find(music, sound => sound.name == name);
         if (s == null)
         {
-            Debug.LogWarning("Le Son : " + name + " n'existe pas... Oublier de le mettre ou mal écrit");
+            Debug.LogWarning("La Musique : " + name + " n'existe pas... Oublier de le mettre ou mal écrit");
             return;
         }
             
         s.source.Stop();
     }
     
-    //Arrête un son : FindObjectOfType<AudioManager>().RandomPitch("NomDuSon");
+    //Met en pause une musique : FindObjectOfType<AudioManager>().Pause("NomDuSon");
+    public void Pause(string name)
+    {
+        Music s = Array.Find(music, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("La Musique : " + name + " n'existe pas... Oublier de le mettre ou mal écrit");
+            return;
+        }
+            
+        s.source.Pause();
+    }
+    
+    //Reprend une musique en pause : FindObjectOfType<AudioManager>().UnPause("NomDuSon");
+    public void UnPause(string name)
+    {
+        Music s = Array.Find(music, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("La Musique : " + name + " n'existe pas... Oublier de le mettre ou mal écrit");
+            return;
+        }
+            
+        s.source.UnPause();
+    }
+    
+    //Joue un son : FindObjectOfType<AudioManager>().OneShot("NomDuSon");
+    public void OneShot(string name)
+    {
+        SFX s = Array.Find(sfx, sound => sound.name == name);
+        if (s == null)
+        {
+            Debug.LogWarning("La Son : " + name + " n'existe pas... Oublier de le mettre ou mal écrit");
+            return;
+        }
+        
+        s.source.PlayOneShot(s.clip);
+    }
+    
+    //Produit un son avec un pitch aléatoire : FindObjectOfType<AudioManager>().RandomPitch("NomDuSon");
     public void RandomPitch(string name)
     {
         float alea = Random.Range(0.6f, 1.5f);
         
-        Sound s = Array.Find(sounds, sound => sound.name == name);
+        SFX s = Array.Find(sfx, sound => sound.name == name);
         if (s == null)
         {
             Debug.LogWarning("Le Son : " + name + " n'existe pas... Oublier de le mettre ou mal écrit");
@@ -76,32 +133,8 @@ public class AudioManager : MonoBehaviour
         }
 
         s.source.pitch = alea;
-        s.source.Play();
+        s.source.PlayOneShot(s.clip);
     }
     
-    //Met en pause un son : FindObjectOfType<AudioManager>().Pause("NomDuSon");
-    public void Pause(string name)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.LogWarning("Le Son : " + name + " n'existe pas... Oublier de le mettre ou mal écrit");
-            return;
-        }
-            
-        s.source.Pause();
-    }
-    
-    //Reprend un son en pause : FindObjectOfType<AudioManager>().UnPause("NomDuSon");
-    public void UnPause(string name)
-    {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
-        {
-            Debug.LogWarning("Le Son : " + name + " n'existe pas... Oublier de le mettre ou mal écrit");
-            return;
-        }
-            
-        s.source.UnPause();
-    }
+    //Je n'est pas mis de fonction pour jouer de voix
 }
