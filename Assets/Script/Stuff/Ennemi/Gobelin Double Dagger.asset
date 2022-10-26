@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c9121371b15b6b04d9ab53464911a00c, type: 3}
-  m_Name: Wizard's Guide
+  m_Name: Gobelin Double Dagger
   m_EditorClassIdentifier: 
-  Logo: {fileID: 21300000, guid: 9a4abb1e5225bbd409299c2f703054ab, type: 3}
+  Logo: {fileID: 21300000, guid: fa7f05dadd771fd41a3ebd67d8e6a3c8, type: 3}
   stuffType: 
-  Damage: 4
-  CD: 2
-  Range: 3
+  Damage: 2
+  CD: 0
+  Range: 1

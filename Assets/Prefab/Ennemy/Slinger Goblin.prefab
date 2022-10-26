@@ -20,6 +20,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3672235354472917217, guid: 0ad12525474315a41980841eb55ba533, type: 3}
+      propertyPath: UnitInfo
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ae5632619c2f7646bc658c7b6d2f5f1, type: 2}
+    - target: {fileID: 3672235354472917217, guid: 0ad12525474315a41980841eb55ba533, type: 3}
       propertyPath: equipmentOne
       value: 
       objectReference: {fileID: 11400000, guid: 8466baaa9d8a8a049bea2c8aa1f852aa, type: 2}
