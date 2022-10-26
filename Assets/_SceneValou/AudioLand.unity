@@ -376,7 +376,7 @@ RectTransform:
   m_Children:
   - {fileID: 894057134}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -424,13 +424,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63921fb77b7876499b81648a82662d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
+  music:
   - name: Test
     clip: {fileID: 8300000, guid: 1e36cf6684e8c484698615642d613cc0, type: 3}
     volume: 1
-    pitch: 1
     loop: 1
     source: {fileID: 0}
+  sfx: []
+  voice: []
 --- !u!4 &703138271
 Transform:
   m_ObjectHideFlags: 0
@@ -444,7 +445,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &894057133
 GameObject:
@@ -701,7 +702,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1167763191
 GameObject:
