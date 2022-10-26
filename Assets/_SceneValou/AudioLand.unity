@@ -424,6 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63921fb77b7876499b81648a82662d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
   music:
   - name: Test
     clip: {fileID: 8300000, guid: 1e36cf6684e8c484698615642d613cc0, type: 3}

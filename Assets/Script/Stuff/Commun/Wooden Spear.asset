@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9121371b15b6b04d9ab53464911a00c, type: 3}
   m_Name: Wooden Spear
   m_EditorClassIdentifier: 
-  Logo: {fileID: 0}
+  Logo: {fileID: 21300000, guid: b2e44a9a167c75c429589ee6986492b6, type: 3}
   stuffType: 
   Damage: 3
   CD: 2

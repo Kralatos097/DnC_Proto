@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public class AudioManager : MonoBehaviour
 {
+    public float timer;
+    
     [Header("Liste de Musique")]
     public Music[] music;
     
@@ -135,6 +137,7 @@ public class AudioManager : MonoBehaviour
         s.source.pitch = alea;
         s.source.PlayOneShot(s.clip);
     }
-    
+
     //Je n'est pas mis de fonction pour jouer de voix
+    //Ajouter des fonctions Fade In / Out pour les musiques
 }
