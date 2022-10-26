@@ -1,13 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
-using UnityEngine.Android;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
-using UnityEngine.WSA;
-using Application = UnityEngine.Application;
 using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
@@ -41,6 +35,13 @@ public class DonjonManager : MonoBehaviour
 
     private static bool _playerInfoPass = false;
 
+    private static string DungeonSceneName;
+
+    private void Awake()
+    {
+        DungeonSceneName = SceneManager.GetActiveScene().name;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +55,8 @@ public class DonjonManager : MonoBehaviour
         {
             AssignPlayerInfo();
         }
+        
+        UiManagerDj.playerInfoUi();
     }
 
     private void AssignPlayerInfo()
@@ -188,6 +191,7 @@ public class DonjonManager : MonoBehaviour
             //todo: nothing
             UiManagerDj.InChoice = false;
         }
+        UiManagerDj.playerInfoUi();
     }
 
     private static Stuff PickStuff()
@@ -222,7 +226,6 @@ public class DonjonManager : MonoBehaviour
         int rand = Random.Range(0, 5);
         if(rand == 0)
         {
-            //todo: Consumable
             Stuff stuff = PickConsumable();
             UiManagerDj.StuffChoiceOne(stuff);
         }
@@ -231,6 +234,7 @@ public class DonjonManager : MonoBehaviour
             Stuff stuff = PickStuff();
             UiManagerDj.StuffChoiceOne(stuff);
         }
+        UiManagerDj.playerInfoUi();
     }
     
     private static void LaunchTrap()
@@ -275,5 +279,10 @@ public class DonjonManager : MonoBehaviour
         Debug.Log(ThiefInfo.CurrentHp);
         Debug.Log(ClericInfo.CurrentHp);
         Debug.Log(WizardInfo.CurrentHp);
+    }
+
+    public static string GetDungeonSceneName()
+    {
+        return DungeonSceneName;
     }
 }
