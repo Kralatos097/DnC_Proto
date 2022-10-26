@@ -3926,7 +3926,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2452694794713074804, guid: 569192100ffd6264a920c6af30004859, type: 3}
       propertyPath: roomType
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2452694794713074804, guid: 569192100ffd6264a920c6af30004859, type: 3}
       propertyPath: doorRight
