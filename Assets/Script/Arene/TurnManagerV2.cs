@@ -39,6 +39,7 @@ public class TurnManagerV2 : MonoBehaviour
     void StartCombat()
     {
         ListToQueue();
+        SetInitsUi();
         StartTurn();
     }
 
@@ -52,14 +53,15 @@ public class TurnManagerV2 : MonoBehaviour
                 if(_isDefeat)
                 {
                     //todo: loose screen
-                    SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName("ProtoDJ"));
+                    SceneManager.UnloadSceneAsync(SceneManager.GetSceneByName(DonjonManager.GetDungeonSceneName()));
                     SceneManager.LoadScene("DefeatScene");
                 }
                 else
                 {
                     SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
                     DonjonManager._gameContainer.SetActive(true);
-                    SceneManager.SetActiveScene(SceneManager.GetSceneByName("ProtoDJ"));
+                    UiManagerDj.playerInfoUi();
+                    SceneManager.SetActiveScene(SceneManager.GetSceneByName(DonjonManager.GetDungeonSceneName()));
                 }
                 
             }
@@ -76,6 +78,14 @@ public class TurnManagerV2 : MonoBehaviour
                     SceneManager.LoadScene("VictoryScene");
                 }
             }
+        }
+    }
+
+    private void SetInitsUi()
+    {
+        foreach (TacticsMovement unit in turnOrder)
+        {
+            UIManager.setInitAction(unit.gameObject);
         }
     }
 

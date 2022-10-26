@@ -506,4 +506,9 @@ public class TacticsMovement : MonoBehaviour
     {
         _unitMat.color = _changeColor;
     }
+
+    public Passif GetPassif()
+    {
+        return passif;
+    }
 }

@@ -21,7 +21,9 @@ public class DojonMovement : MonoBehaviour
     private void Update()
     {
         if(_canMove && !UiManagerDj.ArtworkShown && !UiManagerDj.InChoice)
+        {
             CheckMove();
+        }
         if (Vector3.Distance(transform.position, target) >= .02f)
         {
             UiManagerDj.EnterRoomArtwork(RoomType.Starting);

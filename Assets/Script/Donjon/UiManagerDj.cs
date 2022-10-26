@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -19,6 +20,7 @@ public class UiManagerDj : MonoBehaviour
     [SerializeField] private GameObject StuffCharaSelectPanel;
     [SerializeField] private GameObject StuffReplaceSelectPanel;
     [SerializeField] private GameObject StuffIconPanel;
+    [SerializeField] private Transform PlayerInfoPanel;
 
     public static Action<Stuff> StuffChoiceOne;
 
@@ -26,6 +28,8 @@ public class UiManagerDj : MonoBehaviour
     private RoomEffect _roomEffect;
 
     private Stuff _newStuff;
+    private Stuff _changedStuff;
+    private string _changedEquip;
     private Perso _charaSelected = Perso.Default;
     
     public static bool ArtworkShown = false;
@@ -34,6 +38,14 @@ public class UiManagerDj : MonoBehaviour
     private bool _pass = true;
 
     public Sprite EmptyIcon;
+
+    public delegate void UiDelegate();
+    public static UiDelegate playerInfoUi;
+
+    private void Awake()
+    {
+        playerInfoUi = SetUiPlayerInfo;
+    }
 
     private void Start()
     {
@@ -151,7 +163,6 @@ public class UiManagerDj : MonoBehaviour
         {
             case 0: //Warrior
                 _charaSelected = Perso.Warrior;
-                //todo: recup l'equipement du perso et le mettre dans l'UI de selection d'equipement puis l'afficher
                 EquipChoiceIconChange(WarriorInfo.EquipmentOne, StuffIconPanel.transform.GetChild(1).gameObject);
                 EquipChoiceIconChange(WarriorInfo.EquipmentTwo, StuffIconPanel.transform.GetChild(2).gameObject);
                 EquipChoiceIconChange(WarriorInfo.Passif, StuffIconPanel.transform.GetChild(3).gameObject);
@@ -197,7 +208,7 @@ public class UiManagerDj : MonoBehaviour
         }
         else
         {
-            Go.GetComponent<Image>().sprite = null;
+            Go.GetComponent<Image>().sprite = EmptyIcon;
         }
     }
 
@@ -229,6 +240,7 @@ public class UiManagerDj : MonoBehaviour
     public void ChangeEquipOneButton()
     {
         Stuff stuff = null;
+        _changedStuff = _newStuff;
         switch (_charaSelected)
         {
             case Perso.Warrior:
@@ -253,9 +265,11 @@ public class UiManagerDj : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
         
+        _changedEquip = "equipOne";
+        
         GameObject buttonClicked = EventSystem.current.currentSelectedGameObject;
         
-        buttonClicked.GetComponent<Button>().image.sprite = _newStuff.Logo;
+        buttonClicked.GetComponent<Button>().image.sprite = _newStuff != null ? _newStuff.Logo : EmptyIcon;
         StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = stuff != null ? stuff.Logo : EmptyIcon;
 
         _newStuff = stuff;
@@ -264,6 +278,7 @@ public class UiManagerDj : MonoBehaviour
     public void ChangeEquipTwoButton()
     {
         Stuff stuff = null;
+        _changedStuff = _newStuff;
         switch (_charaSelected)
         {
             case Perso.Warrior:
@@ -288,9 +303,11 @@ public class UiManagerDj : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
         
+        _changedEquip = "equipTwo";
+        
         GameObject buttonClicked = EventSystem.current.currentSelectedGameObject;
         
-        buttonClicked.GetComponent<Button>().image.sprite = _newStuff.Logo;
+        buttonClicked.GetComponent<Button>().image.sprite = _newStuff != null ? _newStuff.Logo : EmptyIcon;
         StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = stuff != null ? stuff.Logo : EmptyIcon;
 
         _newStuff = stuff;
@@ -299,6 +316,7 @@ public class UiManagerDj : MonoBehaviour
     public void ChangePassifButton()
     {
         Stuff stuff = null;
+        _changedStuff = _newStuff;
         switch (_charaSelected)
         {
             case Perso.Warrior:
@@ -323,9 +341,11 @@ public class UiManagerDj : MonoBehaviour
                 throw new ArgumentOutOfRangeException();
         }
         
+        _changedEquip = "passif";
+        
         GameObject buttonClicked = EventSystem.current.currentSelectedGameObject;
         
-        buttonClicked.GetComponent<Button>().image.sprite = _newStuff.Logo;
+        buttonClicked.GetComponent<Button>().image.sprite = _newStuff != null ? _newStuff.Logo : EmptyIcon;
         StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = stuff != null ? stuff.Logo : EmptyIcon;
 
         _newStuff = stuff;
@@ -334,6 +354,7 @@ public class UiManagerDj : MonoBehaviour
     public void ChangeConsumableButton()
     {
         Stuff stuff = null;
+        _changedStuff = _newStuff;
         switch (_charaSelected)
         {
             case Perso.Warrior:
@@ -357,10 +378,12 @@ public class UiManagerDj : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
+
+        _changedEquip = "consumable";
         
         GameObject buttonClicked = EventSystem.current.currentSelectedGameObject;
-        
-        buttonClicked.GetComponent<Button>().image.sprite = _newStuff.Logo;
+
+        buttonClicked.GetComponent<Button>().image.sprite = _newStuff != null ? _newStuff.Logo : EmptyIcon;
         StuffIconPanel.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = stuff != null ? stuff.Logo : EmptyIcon;
 
         _newStuff = stuff;
@@ -375,7 +398,182 @@ public class UiManagerDj : MonoBehaviour
 
     public void ReturnChange()
     {
+        if (_changedStuff != null)
+        {
+            //todo: annule changement de stuff
+            Stuff temp = _newStuff;
+            _newStuff = _changedStuff;
+            _changedStuff = null;
+
+            switch (_charaSelected)
+            {
+                case Perso.Warrior:
+                    switch (_changedEquip)
+                    {
+                        case "equipOne":
+                            WarriorInfo.EquipmentOne = (Equipment)temp;
+                            break;
+                        case "equipTwo":
+                            WarriorInfo.EquipmentTwo = (Equipment)temp;
+                            break;
+                        case "passif":
+                            WarriorInfo.Passif = (Passif)temp;
+                            break;
+                        case "consumable":
+                            WarriorInfo.Consumable = (Consummable)temp;
+                            break;
+                        default:
+                            Debug.LogWarning("oskour");
+                            break;
+                    }
+
+                    break;
+                case Perso.Thief:
+                    switch (_changedEquip)
+                    {
+                        case "equipOne":
+                            ThiefInfo.EquipmentOne = (Equipment)temp;
+                            break;
+                        case "equipTwo":
+                            ThiefInfo.EquipmentTwo = (Equipment)temp;
+                            break;
+                        case "passif":
+                            ThiefInfo.Passif = (Passif)temp;
+                            break;
+                        case "consumable":
+                            ThiefInfo.Consumable = (Consummable)temp;
+                            break;
+                        default:
+                            Debug.LogWarning("oskour");
+                            break;
+                    }
+
+                    break;
+                case Perso.Cleric:
+                    switch (_changedEquip)
+                    {
+                        case "equipOne":
+                            ClericInfo.EquipmentOne = (Equipment)temp;
+                            break;
+                        case "equipTwo":
+                            ClericInfo.EquipmentTwo = (Equipment)temp;
+                            break;
+                        case "passif":
+                            ClericInfo.Passif = (Passif)temp;
+                            break;
+                        case "consumable":
+                            ClericInfo.Consumable = (Consummable)temp;
+                            break;
+                        default:
+                            Debug.LogWarning("oskour");
+                            break;
+                    }
+
+                    break;
+                case Perso.Wizard:
+                    switch (_changedEquip)
+                    {
+                        case "equipOne":
+                            WizardInfo.EquipmentOne = (Equipment)temp;
+                            break;
+                        case "equipTwo":
+                            WizardInfo.EquipmentTwo = (Equipment)temp;
+                            break;
+                        case "passif":
+                            WizardInfo.Passif = (Passif)temp;
+                            break;
+                        case "consumable":
+                            WizardInfo.Consumable = (Consummable)temp;
+                            break;
+                        default:
+                            Debug.LogWarning("oskour");
+                            break;
+                    }
+
+                    break;
+                case Perso.Default:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         StuffReplaceSelectPanel.SetActive(false);
         StuffCharaSelectPanel.SetActive(true);
+    }
+
+    private void SetUiPlayerInfo()
+    {
+        //Warrior
+        Transform playerPanel = PlayerInfoPanel.GetChild(0);
+        if (WarriorInfo.MaxHp > 0)
+        {
+            playerPanel.GetChild(1).GetChild(0).GetComponent<Image>().fillAmount =
+                WarriorInfo.CurrentHp / (float)WarriorInfo.MaxHp;
+            playerPanel.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = WarriorInfo.CurrentHp.ToString();
+
+            if (WarriorInfo.Passif == null)
+            {
+                playerPanel.transform.Find("PassifImg").gameObject.SetActive(false);
+            }
+            else
+                playerPanel.transform.Find("PassifImg").GetComponent<Image>().sprite = WarriorInfo.Passif.Logo;
+        }
+        else
+            playerPanel.gameObject.SetActive(false);
+
+        //Thief
+        playerPanel = PlayerInfoPanel.GetChild(1);
+        if (ThiefInfo.MaxHp > 0)
+        {
+            playerPanel.GetChild(1).GetChild(0).GetComponent<Image>().fillAmount =
+                ThiefInfo.CurrentHp / (float)ThiefInfo.MaxHp;
+            playerPanel.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = ThiefInfo.CurrentHp.ToString();
+
+            if (ThiefInfo.Passif == null)
+            {
+                playerPanel.transform.Find("PassifImg").gameObject.SetActive(false);
+            }
+            else
+                playerPanel.transform.Find("PassifImg").GetComponent<Image>().sprite = ThiefInfo.Passif.Logo;
+        }
+        else
+            playerPanel.gameObject.SetActive(false);
+
+        //Cleric
+        playerPanel = PlayerInfoPanel.GetChild(2);
+        if (ClericInfo.MaxHp > 0)
+        {
+            playerPanel.GetChild(1).GetChild(0).GetComponent<Image>().fillAmount =
+                ClericInfo.CurrentHp / (float)ClericInfo.MaxHp;
+            playerPanel.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = ClericInfo.CurrentHp.ToString();
+
+            if (ClericInfo.Passif == null)
+            {
+                playerPanel.transform.Find("PassifImg").gameObject.SetActive(false);
+            }
+            else
+                playerPanel.transform.Find("PassifImg").GetComponent<Image>().sprite = ClericInfo.Passif.Logo;
+        }
+        else
+            playerPanel.gameObject.SetActive(false);
+
+        //Wizard
+        playerPanel = PlayerInfoPanel.GetChild(3);
+        if (WizardInfo.MaxHp > 0)
+        {
+            playerPanel.GetChild(1).GetChild(0).GetComponent<Image>().fillAmount =
+                WizardInfo.CurrentHp / (float)WizardInfo.MaxHp;
+            playerPanel.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = WizardInfo.CurrentHp.ToString();
+
+            if (WizardInfo.Passif == null)
+            {
+                playerPanel.transform.Find("PassifImg").gameObject.SetActive(false);
+            }
+            else
+                playerPanel.transform.Find("PassifImg").GetComponent<Image>().sprite = WizardInfo.Passif.Logo;
+        }
+        else
+            playerPanel.gameObject.SetActive(false);
     }
 }
