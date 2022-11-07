@@ -1,5 +1,7 @@
 public class WarriorInfo
 {
+    public static Perso PlayerClass = Perso.Warrior;
+    
     public static int MaxHp = 0;
     private static int _currentHp = 0;
     public static int CurrentHp
@@ -16,6 +18,9 @@ public class WarriorInfo
         }
     }
 
+    public static int Armor = 0;
+    public static StatusEffect StatusEffect = StatusEffect.Nothing;
+
     public static int Init = 0;
     public static int Movement = 0;
 
@@ -27,6 +32,8 @@ public class WarriorInfo
 
 public class ThiefInfo
 {
+    public static Perso PlayerClass = Perso.Thief;
+    
     public static int MaxHp = 0;
     private static int _currentHp = 0;
     public static int CurrentHp
@@ -54,6 +61,8 @@ public class ThiefInfo
 
 public class ClericInfo
 {
+    public static Perso PlayerClass = Perso.Cleric;
+    
     public static int MaxHp = 0;
     private static int _currentHp = 0;
     public static int CurrentHp
@@ -81,6 +90,8 @@ public class ClericInfo
 
 public class WizardInfo
 {
+    public static Perso PlayerClass = Perso.Wizard;
+
     public static int MaxHp = 0;
     private static int _currentHp = 0;
     public static int CurrentHp

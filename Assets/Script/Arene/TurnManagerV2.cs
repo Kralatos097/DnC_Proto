@@ -60,7 +60,8 @@ public class TurnManagerV2 : MonoBehaviour
                 {
                     SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
                     DonjonManager._gameContainer.SetActive(true);
-                    UiManagerDj.playerInfoUi();
+                    //todo: update life
+                    //UiManagerDj.playerInfoUi();
                     SceneManager.SetActiveScene(SceneManager.GetSceneByName(DonjonManager.GetDungeonSceneName()));
                 }
                 

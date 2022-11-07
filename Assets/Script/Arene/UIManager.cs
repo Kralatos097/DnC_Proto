@@ -1,12 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -41,6 +37,14 @@ public class UIManager : MonoBehaviour
     public GameObject EnemyInitPanel;
 
     public static Action<GameObject> setInitAction;
+    
+    private Dictionary<GameObject,GameObject> _playerPanelList = new Dictionary<GameObject, GameObject>();
+
+    [Header("Status Icons")]
+    public Sprite BurnIcon;
+    public Sprite StunIcon;
+    public Sprite PoisonIcon;
+    public Sprite FreezeIcon;
 
     private void Awake()
     {
@@ -54,6 +58,8 @@ public class UIManager : MonoBehaviour
             //todo mieux gerer quand on clique en dehors des ranges
             ShowActionSelector();
         }
+        
+        UpdateHpUi();
             
         if (Input.GetMouseButtonUp(1))//On release right click
         {
@@ -266,6 +272,8 @@ public class UIManager : MonoBehaviour
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
+            _playerPanelList.Add(unit, t);
 
             t.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + combatStat.currHp;
             t.transform.GetChild(1).Find("FillHpImg").GetComponent<Image>().fillAmount =
@@ -284,5 +292,64 @@ public class UIManager : MonoBehaviour
         }
         t.transform.Find("ArmorImg").gameObject.SetActive(false);
         t.transform.Find("StatusImg").gameObject.SetActive(false);
+    }
+
+    public void UpdateHpUi()
+    {
+        foreach(KeyValuePair<GameObject, GameObject> t in _playerPanelList)
+        {
+            t.Value.transform.GetChild(1).GetChild(1).GetComponent<TextMeshProUGUI>().text = "" + t.Key.GetComponent<CombatStat>().currHp;
+            t.Value.transform.GetChild(1).Find("FillHpImg").GetComponent<Image>().fillAmount =
+                (t.Key.GetComponent<CombatStat>().currHp / (float)t.Key.GetComponent<CombatStat>().MaxHp);
+            if (t.Key.GetComponent<PlayerMovement>().GetPassif() == null)
+            {
+                t.Value.transform.Find("PassifImg").gameObject.SetActive(false);
+            }
+            else
+                t.Value.transform.Find("PassifImg").GetComponent<Image>().sprite = t.Key.GetComponent<PlayerMovement>().GetPassif().Logo;
+
+            int armor = t.Key.GetComponent<CombatStat>().armor;
+            if(armor > 0)
+            {
+                t.Value.transform.Find("ArmorImg").gameObject.SetActive(true);
+                t.Value.transform.Find("ArmorImg").GetComponentInChildren<TextMeshProUGUI>().text =
+                    armor.ToString();
+            }
+            else
+            {
+                t.Value.transform.Find("ArmorImg").gameObject.SetActive(false);
+            }
+
+            StatusEffect status = t.Key.GetComponent<CombatStat>().StatusEffect;
+            if(status != StatusEffect.Nothing)
+            {
+                switch(status)
+                {
+                    case StatusEffect.Poison:
+                        t.Value.transform.Find("StatusImg").GetComponent<Image>().sprite = PoisonIcon;
+                        break;
+                    case StatusEffect.Stun:
+                        t.Value.transform.Find("StatusImg").GetComponent<Image>().sprite = StunIcon;
+                        break;
+                    case StatusEffect.Burn:
+                        t.Value.transform.Find("StatusImg").GetComponent<Image>().sprite = BurnIcon;
+                        break;
+                    case StatusEffect.Freeze:
+                        t.Value.transform.Find("StatusImg").GetComponent<Image>().sprite = FreezeIcon;
+                        break;
+                    case StatusEffect.Nothing:
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                
+                t.Value.transform.Find("StatusImg").gameObject.SetActive(true);
+                t.Value.transform.Find("StatusImg").GetComponentInChildren<TextMeshProUGUI>().text =
+                    t.Key.GetComponent<CombatStat>().statusValue.ToString();
+            }
+            else
+            {
+                t.Value.transform.Find("StatusImg").gameObject.SetActive(false);
+            }
+        }
     }
 }

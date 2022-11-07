@@ -59,6 +59,11 @@ public class DonjonManager : MonoBehaviour
         UiManagerDj.playerInfoUi();
     }
 
+    private void Update()
+    {
+        UiManagerDj.playerInfoUi();
+    }
+
     private void AssignPlayerInfo()
     {
         WarriorInfo.MaxHp = warriorInfo.MaxHp;

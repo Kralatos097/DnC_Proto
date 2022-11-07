@@ -35,6 +35,10 @@ public class CombatStat : MonoBehaviour
         }
     }
 
+    [HideInInspector] public int armor = 0;
+    [HideInInspector] public StatusEffect StatusEffect = StatusEffect.Nothing;
+    [HideInInspector] public int statusValue = 0;
+
     [HideInInspector] public int currInit;
 
     [HideInInspector] public bool isAlive = true;

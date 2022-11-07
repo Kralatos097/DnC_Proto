@@ -51,3 +51,12 @@ public enum Perso
     Cleric,
     Wizard,
 }
+
+public enum StatusEffect
+{
+    Nothing,
+    Poison,
+    Stun,
+    Burn,
+    Freeze,
+}

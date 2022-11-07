@@ -5,27 +5,27 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/_SceneTibo/TestDeplacement.unity
-    guid: 7187e9952efd14642b9dda9e8117906d
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/_SceneTibo/ProtoDJ.unity
     guid: 95ee46a7be608df468dcb78f84c655e7
   - enabled: 1
     path: Assets/_SceneTibo/Test/TestDeplacement 1.unity
     guid: c926119de5242764196406c7548fc5f8
-  - enabled: 1
-    path: Assets/_SceneTibo/Test/TestDeplacement 2.unity
-    guid: 59ee41517e1d1cb4fb9b4e88d1860036
-  - enabled: 1
-    path: Assets/_SceneTibo/Test/TestDeplacement 3.unity
-    guid: ed9c26fbe120f9a4a91d8b22d2331c8a
-  - enabled: 1
-    path: Assets/_SceneTibo/Test/TestDeplacement 4.unity
-    guid: c7b41ccf048fae5438417b7ee36d65eb
-  - enabled: 1
-    path: Assets/_SceneTibo/Test/TestDeplacement 5.unity
-    guid: 9fe537a30b2ac924c8180c04c045b724
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/_SceneTibo/VictoryScene.unity
     guid: 9e3023c8ce9ccf14e909ceebca869744
