@@ -11,7 +11,8 @@ public class TurnManagerV2 : MonoBehaviour
     private static Transform _combatEndCanvas;
     
     private static Queue<TacticsMovement> turnOrder = new Queue<TacticsMovement>();
-    private static List<TacticsMovement> unitsList = new List<TacticsMovement>();
+    private static List<TacticsMovement> _unitsList = new List<TacticsMovement>();
+    private static List<PlayerMovement> _playerList = new List<PlayerMovement>();
 
     [HideInInspector] public bool startCombat = false;
     public bool bossFight = false;
@@ -20,8 +21,9 @@ public class TurnManagerV2 : MonoBehaviour
 
     private void Awake()
     {
-        unitsList.Clear();
+        _unitsList.Clear();
         turnOrder.Clear();
+        _playerList.Clear();
     }
 
     private void Start()
@@ -115,9 +117,9 @@ public class TurnManagerV2 : MonoBehaviour
     
     private static void SetPlayersInfo()
     {
-        foreach (TacticsMovement tacticsMovement in unitsList)
+        foreach (PlayerMovement movement in _playerList)
         {
-            PlayerMovement playerMovement = tacticsMovement.gameObject.GetComponent<PlayerMovement>();
+            PlayerMovement playerMovement = movement.gameObject.GetComponent<PlayerMovement>();
             if(playerMovement != null)
             {
                 playerMovement.SetUnitInfo();
@@ -157,12 +159,12 @@ public class TurnManagerV2 : MonoBehaviour
 
     private static void ListToQueue()
     {
-        while (unitsList.Count > 0)
+        while (_unitsList.Count > 0)
         {
             int temp = -100;
 
             TacticsMovement unitRet = null;
-            foreach (TacticsMovement unit in unitsList)
+            foreach (TacticsMovement unit in _unitsList)
             {
                 int init = unit.gameObject.GetComponent<CombatStat>().currInit;
 
@@ -209,14 +211,19 @@ public class TurnManagerV2 : MonoBehaviour
                 }
             }
 
-            unitsList.Remove(unitRet);
+            _unitsList.Remove(unitRet);
             turnOrder.Enqueue(unitRet);
         }
     }
     
     public static void AddUnit(TacticsMovement unit)
     {
-         unitsList.Add(unit);
+         _unitsList.Add(unit);
+    }
+    
+    public static void AddPlayerToList(PlayerMovement unit)
+    {
+        _playerList.Add(unit);
     }
     
     //todo: remove of the list

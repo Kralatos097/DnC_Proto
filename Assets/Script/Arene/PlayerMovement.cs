@@ -19,8 +19,10 @@ public class PlayerMovement : TacticsMovement
     {
         _uiManager = FindObjectOfType<UIManager>();
         Init();
+        TurnManagerV2.AddPlayerToList(this);
         _lastPos = transform.position;
         _lastRot = transform.rotation;
+        
     }
 
     protected override void GetUnitInfo()
