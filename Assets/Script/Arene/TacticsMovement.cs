@@ -60,7 +60,8 @@ public class TacticsMovement : MonoBehaviour
 
         halfHeight = GetComponent<Collider>().bounds.extents.y;
 
-        gameObject.GetComponent<CombatStat>().RollInit();
+        _combatStat = gameObject.GetComponent<CombatStat>();
+        _combatStat.RollInit();
         
         TurnManagerV2.AddUnit(this);
     }

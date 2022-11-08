@@ -22,7 +22,6 @@ public class PlayerMovement : TacticsMovement
         TurnManagerV2.AddPlayerToList(this);
         _lastPos = transform.position;
         _lastRot = transform.rotation;
-        
     }
 
     protected override void GetUnitInfo()
@@ -92,6 +91,8 @@ public class PlayerMovement : TacticsMovement
 
     public void SetUnitInfo()
     {
+        Debug.Log(charaClass);
+        
         switch(charaClass)
         {
             case Perso.Warrior:

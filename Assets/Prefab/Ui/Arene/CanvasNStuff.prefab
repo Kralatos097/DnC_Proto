@@ -549,6 +549,10 @@ PrefabInstance:
       propertyPath: ActionSelectorPanel
       value: 
       objectReference: {fileID: 8897419219509014767}
+    - target: {fileID: 7539778869618299353, guid: 4f2a3f05501583a4d917e285972dd53e, type: 3}
+      propertyPath: CombatEndCanvas
+      value: 
+      objectReference: {fileID: 7593776093540229698}
     - target: {fileID: 7539778869618299356, guid: 4f2a3f05501583a4d917e285972dd53e, type: 3}
       propertyPath: m_Name
       value: GameManager (1)
