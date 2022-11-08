@@ -54,6 +54,7 @@ public class DonjonManager : MonoBehaviour
         if(!_playerInfoPass)
         {
             AssignPlayerInfo();
+            _playerInfoPass = true;
         }
         
         UiManagerDj.playerInfoUi();

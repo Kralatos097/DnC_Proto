@@ -56,11 +56,12 @@ public class TacticsMovement : MonoBehaviour
     {
         tiles = GameObject.FindGameObjectsWithTag("Tile");
         
+        _combatStat = gameObject.GetComponent<CombatStat>();
+        
         GetUnitInfo();
 
         halfHeight = GetComponent<Collider>().bounds.extents.y;
 
-        _combatStat = gameObject.GetComponent<CombatStat>();
         _combatStat.RollInit();
         
         TurnManagerV2.AddUnit(this);

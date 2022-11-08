@@ -46,8 +46,6 @@ public class CombatStat : MonoBehaviour
     public void RollInit()
     {
         currInit = initiative + Random.Range(1,7);
-        
-        Debug.Log(gameObject.name +" / curr: "+ currInit +" / init: " + initiative);
     }
 
     private void UnitDeath()

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class WarriorInfo
 {
     public static Perso PlayerClass = Perso.Warrior;
@@ -28,6 +30,12 @@ public class WarriorInfo
     public static Equipment EquipmentTwo = null;
     public static Passif Passif = null;
     public static Consummable Consumable = null;
+
+    public static void AffStats()
+    {
+        Debug.Log("Warrior Infos :\n"+
+                  MaxHp+ " - "+ CurrentHp);
+    }
 }
 
 public class ThiefInfo
@@ -57,6 +65,12 @@ public class ThiefInfo
     public static Equipment EquipmentTwo = null;
     public static Passif Passif = null;
     public static Consummable Consumable = null;
+
+    public static void AffStats()
+    {
+        Debug.Log("Warrior Infos :\n"+
+                  MaxHp+ " - "+ CurrentHp);
+    }
 }
 
 public class ClericInfo
@@ -86,6 +100,12 @@ public class ClericInfo
     public static Equipment EquipmentTwo = null;
     public static Passif Passif = null;
     public static Consummable Consumable = null;
+
+    public static void AffStats()
+    {
+        Debug.Log("Warrior Infos :\n"+
+                  MaxHp+ " - "+ CurrentHp);
+    }
 }
 
 public class WizardInfo
@@ -115,4 +135,10 @@ public class WizardInfo
     public static Equipment EquipmentTwo = null;
     public static Passif Passif = null;
     public static Consummable Consumable = null;
+
+    public static void AffStats()
+    {
+        Debug.Log("Warrior Infos :\n"+
+                  MaxHp+ " - "+ CurrentHp);
+    }
 }

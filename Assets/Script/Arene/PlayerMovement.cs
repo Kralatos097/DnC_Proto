@@ -26,12 +26,11 @@ public class PlayerMovement : TacticsMovement
 
     protected override void GetUnitInfo()
     {
-        CombatStat _combatStat = gameObject.GetComponent<CombatStat>();
         switch(charaClass)
         {
             case Perso.Warrior:
                 _combatStat.MaxHp = WarriorInfo.MaxHp;
-                _combatStat.currHp = WarriorInfo.MaxHp;
+                _combatStat.currHp = WarriorInfo.CurrentHp;
                 _combatStat.initiative = WarriorInfo.Init;
 
                 move = WarriorInfo.Movement;
@@ -42,7 +41,7 @@ public class PlayerMovement : TacticsMovement
                 break;
             case Perso.Thief:
                 _combatStat.MaxHp = ThiefInfo.MaxHp;
-                _combatStat.currHp = ThiefInfo.MaxHp;
+                _combatStat.currHp = ThiefInfo.CurrentHp;
                 _combatStat.initiative = ThiefInfo.Init;
 
                 move = ThiefInfo.Movement;
@@ -53,7 +52,7 @@ public class PlayerMovement : TacticsMovement
                 break;
             case Perso.Cleric:
                 _combatStat.MaxHp = ClericInfo.MaxHp;
-                _combatStat.currHp = ClericInfo.MaxHp;
+                _combatStat.currHp = ClericInfo.CurrentHp;
                 _combatStat.initiative = ClericInfo.Init;
 
                 move = ClericInfo.Movement;
@@ -64,7 +63,7 @@ public class PlayerMovement : TacticsMovement
                 break;
             case Perso.Wizard:
                 _combatStat.MaxHp = WizardInfo.MaxHp;
-                _combatStat.currHp = WizardInfo.MaxHp;
+                _combatStat.currHp = WizardInfo.CurrentHp;
                 _combatStat.initiative = WizardInfo.Init;
 
                 move = WizardInfo.Movement;
@@ -91,8 +90,6 @@ public class PlayerMovement : TacticsMovement
 
     public void SetUnitInfo()
     {
-        Debug.Log(charaClass);
-        
         switch(charaClass)
         {
             case Perso.Warrior:
