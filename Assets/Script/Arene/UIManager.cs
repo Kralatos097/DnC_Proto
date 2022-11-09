@@ -40,6 +40,8 @@ public class UIManager : MonoBehaviour
     
     private Dictionary<GameObject,GameObject> _playerPanelList = new Dictionary<GameObject, GameObject>();
 
+    public static bool Moving = false; 
+
     [Header("Status Icons")]
     public Sprite BurnIcon;
     public Sprite StunIcon;
@@ -63,6 +65,7 @@ public class UIManager : MonoBehaviour
             
         if (Input.GetMouseButtonUp(1))//On release right click
         {
+            Debug.Log(actionSelected);
             switch (_actionSelectorShown)
             {
                 case true:
@@ -72,12 +75,14 @@ public class UIManager : MonoBehaviour
                     switch (actionSelected)
                     {
                         case Action.Default:
-                            if (alreadyMoved)
+                            if(alreadyMoved)
                             {
                                 actionSelected = Action.CancelMove;
                             }
                             return;
                         case Action.Move:
+                            if(alreadyMoved)
+                                break;
                             actionSelected = Action.Default;
                             ShowActionSelector();
                             break;
